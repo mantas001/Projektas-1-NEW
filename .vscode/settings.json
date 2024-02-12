@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "*.asm": "wat",
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "iostream": "cpp"
     }
 }
