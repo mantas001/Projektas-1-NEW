@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-
+#include <iomanip>
 using namespace std;
 
 struct stud {
@@ -42,10 +42,13 @@ int main() {
         grupe[i].vid = (double)sum / m;
     }
 
+cout << "Vardas        Pavarde       Galutinis (Vid.)" << endl;
+cout << "--------------------------------------------" << endl;
     for (int i = 0; i < n; i++) {
+        double galutinis=(0.4*(grupe[i].vid))+(0.6*(grupe[i].rez_egz));
+        cout <<left<<setw(14)<< grupe[i].vard <<left<< setw(14) << grupe[i].pav <<left<< setw(14) << setprecision(2) << galutinis << endl;
         delete[] grupe[i].rez_nd;
     }
-
     delete[] grupe;
 
     return 0;
