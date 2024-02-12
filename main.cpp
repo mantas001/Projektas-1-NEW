@@ -3,26 +3,22 @@
 
 using namespace std;
 
-struct stud{
-        string vard, pav;
-        int rez_nd, rez_egz;
+struct stud {
+    string vard, pav;
+    int* rez_nd;
+    int rez_egz;
+    double vid;
 };
 
-int main()
-{
-    int n=0;
-    int m=0;
+int main() {
+    int n = 0;
 
-    stud *grupe = new stud [n];
-
-    cout<<"Kiek studentų yra grupėje? ";
+    cout << "Kiek studentų yra grupėje? ";
     cin >> n;
 
-    delete [] grupe;
+    stud* grupe = new stud[n];
 
-    grupe = new stud [n];
-
-    for (int i=0; i<n; i++){
+    for (int i = 0; i < n; i++) {
         cout << "Studento vardas ir pavarde: ";
         cin >> grupe[i].vard >> grupe[i].pav;
         cout << endl;
@@ -30,6 +26,27 @@ int main()
         cout << "Studento egzamino rezultatas: ";
         cin >> grupe[i].rez_egz;
         cout << endl;
+
+        cout << "Studento namu darbu uzduociu kiekis: ";
+        int m;
+        cin >> m;
+
+        grupe[i].rez_nd = new int[m];
+
+        int sum = 0;
+        for (int j = 0; j < m; j++) {
+            cout << "Studento " << grupe[i].vard << " " << grupe[i].pav << " " << j + 1 << "-os uzduoties rezultatas(1-10): ";
+            cin >> grupe[i].rez_nd[j];
+            sum += grupe[i].rez_nd[j];
+        }
+        grupe[i].vid = (double)sum / m;
     }
+
+    for (int i = 0; i < n; i++) {
+        delete[] grupe[i].rez_nd;
+    }
+
+    delete[] grupe;
+
     return 0;
 }
