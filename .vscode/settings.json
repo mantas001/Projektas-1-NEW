@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "*.asm": "wat",
+        "xstring": "cpp",
+        "iostream": "cpp",
+        "iomanip": "cpp",
+        "ios": "cpp",
+        "xiosbase": "cpp",
+        "ostream": "cpp"
+    }
+}
