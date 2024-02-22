@@ -5,6 +5,9 @@
 #include <ctime>
 #include <vector>
 #include <algorithm>
+#include <fstream>
+#include <sstream>
+
 
 using namespace std;
 
@@ -23,6 +26,7 @@ void pasirinkimas2(vector<stud>& grupe);
 void pasirinkimas3(vector<stud>& grupe);
 void printrez(const vector<stud>& grupe);
 void MedianaVidurkis(stud& grupe);
+void pasirinkimas4(vector<stud>& grupe);
 
 int main() {
     srand(time(NULL));
@@ -30,17 +34,18 @@ int main() {
     char pasirinkimas;
     do {
         do {
-            cout << "1 - Ivesti duomenis ranka\n2 - Generuoti pazymius\n3 - Generuoti ir pazymius, ir studentu vardus, ir pavardes\n4 - Baigti darba\nPasirinkimas: ";
+            cout << "1 - Ivesti duomenis ranka\n2 - Generuoti pazymius\n3 - Generuoti ir pazymius, ir studentu vardus, ir pavardes\n4 - Skaityti duomenis is failo\n5 - Baigti darba\nPasirinkimas: ";
             cin >> pasirinkimas;
-        } while (!(pasirinkimas == '1' || pasirinkimas == '2' || pasirinkimas == '3' || pasirinkimas == '4'));
+        } while (!(pasirinkimas == '1' || pasirinkimas == '2' || pasirinkimas == '3' || pasirinkimas == '4'|| pasirinkimas == '5'));
 
         if (pasirinkimas=='1') pasirinkimas1(grupe);
         else if (pasirinkimas=='2') pasirinkimas2(grupe);
         else if (pasirinkimas=='3') pasirinkimas3(grupe);
-        else if (pasirinkimas=='4') break;
+        else if (pasirinkimas=='4') pasirinkimas4(grupe);
+        else if (pasirinkimas=='5') break;
         else cout << "Neteisingas pasirinkimas. Bandykite dar karta.\n";
 
-    } while (pasirinkimas != '4');
+    } while (pasirinkimas != '5');
     return 0;
 }
 
@@ -113,16 +118,16 @@ void printrez(const vector<stud>& grupe) {
     do{
     cin >> vid_med;
     }while(vid_med!='v'&&vid_med!='m');
-    cout << "Vardas        Pavarde       "; if (vid_med == 'v') cout <<"Galutinis (Vid.)"<< endl;
+    cout << "Vardas              Pavarde             "; if (vid_med == 'v') cout <<"Galutinis (Vid.)"<< endl;
                                             else if (vid_med == 'm') cout <<"Galutinis (Med.)"<< endl;
-    cout << "--------------------------------------------" << endl;
+    cout << "--------------------------------------------------------" << endl;
     for (int i = 0; i < grupe.size(); i++) {
         if (vid_med == 'v') a = grupe[i].vid;
         else if (vid_med == 'm') a = grupe[i].med;
         double galutinis = (0.4 * a) + (0.6 * grupe[i].rez_egz);
-        cout << left << setw(14) << grupe[i].vard << left << setw(14) << grupe[i].pav << left << setw(20) << setprecision(2) << galutinis << endl;
+        cout << left << setw(20) << grupe[i].vard << left << setw(20) << grupe[i].pav << left << setw(20) << setprecision(2) << galutinis << endl;
     }
-    cout << "--------------------------------------------\n";
+    cout << "--------------------------------------------------------\n";
     cout << endl;
 }
 
@@ -140,3 +145,60 @@ void MedianaVidurkis(stud& grupe) {
     }
     grupe.vid = sum / m_size;
 }
+void pasirinkimas4(vector<stud>& grupe) {
+    ifstream file("studentai10000.txt"); // Open the file
+    if (!file) {
+        cout << "Nepavyko atidaryti failo." << endl;
+        return;
+    }
+
+    string line;
+    getline(file, line); // Skip the first line
+
+    int expected_size = 15; // Default size assuming 15 elements for rez_nd in this file
+    while (getline(file, line)) {
+        istringstream iss(line);
+        stud student;
+        iss >> student.vard >> student.pav;
+
+        // Resize rez_nd based on the expected size
+        student.rez_nd.resize(expected_size);
+
+        // Read rez_nd values
+        for (int j = 0; j < expected_size; ++j) {
+            if (iss.eof()) {
+                // If there are fewer values than expected, adjust the size
+                student.rez_nd.resize(j);
+                break;
+            }
+            iss >> student.rez_nd[j];
+        }
+
+        iss >> student.rez_egz;
+        MedianaVidurkis(student);
+        grupe.push_back(student);
+    }
+
+    file.close();
+    //printrez i faila*************
+    ofstream fr("rezultatai.txt");
+    char vid_med;
+    double a = -1;
+    cout << "Skaiciuoti galutini ivertinima naudojant vidurki ar mediana? (v, m) ";
+    do{
+    cin >> vid_med;
+    }while(vid_med!='v'&&vid_med!='m');
+    fr << "Vardas              Pavarde             "; if (vid_med == 'v') fr <<"Galutinis (Vid.)"<< endl;
+                                            else if (vid_med == 'm') fr <<"Galutinis (Med.)"<< endl;
+    fr << "--------------------------------------------------------" << endl;
+    for (int i = 0; i < grupe.size(); i++) {
+        if (vid_med == 'v') a = grupe[i].vid;
+        else if (vid_med == 'm') a = grupe[i].med;
+        double galutinis = (0.4 * a) + (0.6 * grupe[i].rez_egz);
+        fr << left << setw(20) << grupe[i].vard << left << setw(20) << grupe[i].pav << left << setw(20) << setprecision(2) << galutinis << endl;
+    }
+    fr << "--------------------------------------------------------\n";
+    fr.close();
+    //**********
+}
+
