@@ -120,7 +120,7 @@ void printrez(const vector<stud>& grupe) {
         if (vid_med == 'v') a = grupe[i].vid;
         else if (vid_med == 'm') a = grupe[i].med;
         double galutinis = (0.4 * a) + (0.6 * grupe[i].rez_egz);
-        cout << left << setw(14) << grupe[i].vard << left << setw(14) << grupe[i].pav << left << setw(20) << setprecision(2) << galutinis << endl;
+        cout << left << setw(20) << grupe[i].vard << left << setw(20) << grupe[i].pav << left << setw(20) << setprecision(3) << galutinis << endl;
     }
     cout << "--------------------------------------------\n";
     cout << endl;
@@ -140,3 +140,70 @@ void MedianaVidurkis(stud& grupe) {
     }
     grupe.vid = sum / m_size;
 }
+void pasirinkimas4(vector<stud>& grupe) {
+    system("dir *.txt");
+    string filename;
+    cin >> filename;
+    ifstream file(filename); // Open the file
+    if (!file) {
+        cout << "Nepavyko atidaryti failo." << endl;
+        return;
+    }
+
+    string line;
+    int word_count = 0; // Count of words in the first line
+    // Read the first line to count the number of words
+    getline(file, line);
+    istringstream iss_first(line);
+    while (iss_first >> line) {
+        word_count++;
+    }
+
+    int expected_size = word_count - 3; // Deducting 2 for name and surname
+    // Read data for each student from the file
+    while (getline(file, line)) {
+        istringstream iss(line);
+        stud student;
+        iss >> student.vard >> student.pav;
+
+        // Resize rez_nd based on the expected size
+        student.rez_nd.resize(expected_size);
+
+        // Read rez_nd values
+        for (int j = 0; j < expected_size; ++j) {
+            if (iss.eof()) {
+                // If there are fewer values than expected, adjust the size
+                student.rez_nd.resize(j);
+                break;
+            }
+            iss >> student.rez_nd[j];
+        }
+
+        iss >> student.rez_egz;
+        MedianaVidurkis(student);
+        grupe.push_back(student);
+    }
+
+    file.close();
+    //printrez i faila*************
+    ofstream fr("rezultatai.txt");
+    char vid_med;
+    double a = -1;
+    cout << "Skaiciuoti galutini ivertinima naudojant vidurki ar mediana? (v, m) ";
+    do{
+    cin >> vid_med;
+    }while(vid_med!='v'&&vid_med!='m');
+    fr << "Vardas              Pavarde             "; if (vid_med == 'v') fr <<"Galutinis (Vid.)"<< endl;
+                                            else if (vid_med == 'm') fr <<"Galutinis (Med.)"<< endl;
+    fr << "--------------------------------------------------------" << endl;
+    for (int i = 0; i < grupe.size(); i++) {
+        if (vid_med == 'v') a = grupe[i].vid;
+        else if (vid_med == 'm') a = grupe[i].med;
+        double galutinis = (0.4 * a) + (0.6 * grupe[i].rez_egz);
+        fr << left << setw(20) << grupe[i].vard << left << setw(20) << grupe[i].pav << left << setw(20) << setprecision(3) << galutinis << endl;
+    }
+    fr << "--------------------------------------------------------\n";
+    fr.close();
+    //**********
+}
+
