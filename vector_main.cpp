@@ -1,128 +1,204 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
-#include <cstdlib> //rand() and srand()
-#include <ctime>   //time()
-#include <vector>  // For vector container
+#include <cstdlib>
+#include <ctime>
+#include <vector>
+#include <algorithm>
+#include <fstream>
+#include <sstream>
+
+
 using namespace std;
 
-const int M=20;//namu darbu uzduociu kiekis
+const int M = 15; // namu darbu uzduociu kiekis kai generuojama atsitiktinai
+
 struct stud {
     string vard, pav;
-    vector<double> rez_nd; // Change to vector<int>
+    vector<double> rez_nd;
     double rez_egz;
     double vid;
     double med;
 };
 
+void pasirinkimas1(vector<stud>& grupe);
+void pasirinkimas2(vector<stud>& grupe);
+void pasirinkimas3(vector<stud>& grupe);
+void printrez(const vector<stud>& grupe);
+void MedianaVidurkis(stud& grupe);
+void pasirinkimas4(vector<stud>& grupe);
+
 int main() {
-
     srand(time(NULL));
-
-    vector<string> vardai = {"Vardas1", "Vardas2", "Vardas3", "Vardas4", "Vardas5", "Vardas6", "Vardas7"};
-    vector<string> pavardes = {"Pavarde1", "Pavarde2", "Pavarde3", "Pavarde4", "Pavarde5", "Pavarde6", "Pavarde7"};
-
-    int pasirinkimas=0;
-    do{
+    vector<stud> grupe;
+    char pasirinkimas;
+    do {
         do {
-            cout << "1 - Ivesti duomenis ranka\n2 - Generuoti pazymius\n3 - Generuoti ir pazymius, ir studentu vardus, pavardes\n4 - Baigti darba\nPasirinkimas: ";
+            cout << "1 - Ivesti duomenis ranka\n2 - Generuoti pazymius\n3 - Generuoti ir pazymius, ir studentu vardus, ir pavardes\n4 - Skaityti duomenis is failo\n5 - Baigti darba\nPasirinkimas: ";
             cin >> pasirinkimas;
-        } while (!(pasirinkimas == 1 || pasirinkimas == 2 || pasirinkimas == 3 || pasirinkimas == 4));
+        } while (!(pasirinkimas == '1' || pasirinkimas == '2' || pasirinkimas == '3' || pasirinkimas == '4'|| pasirinkimas == '5'));
 
-        if (pasirinkimas == 4) break;
+        if (pasirinkimas=='1') pasirinkimas1(grupe);
+        else if (pasirinkimas=='2') pasirinkimas2(grupe);
+        else if (pasirinkimas=='3') pasirinkimas3(grupe);
+        else if (pasirinkimas=='4') pasirinkimas4(grupe);
+        else if (pasirinkimas=='5') break;
+        else cout << "Neteisingas pasirinkimas. Bandykite dar karta.\n";
 
-        int n = 0;
-        cout << "Kiek studentu yra grupeje? ";
-        cin >> n;
-
-        vector<stud> grupe(n);
-
-        if (n > 0) {
-            for (int i = 0; i < n; i++) {
-                if (pasirinkimas==1){
-                    cout << "Studento vardas ir pavarde: ";
-                    cin >> grupe[i].vard >> grupe[i].pav;
-                    cout << endl;
-                    do
-                    {
-                        cout << "Studento egzamino rezultatas(1-10): ";
-                        cin >> grupe[i].rez_egz;
-                        cout << endl;
-                    } while ((grupe[i].rez_egz< 0 || grupe[i].rez_egz> 10));
-                }
-                else if(pasirinkimas==2){
-                    cout << "Studento vardas ir pavarde: ";
-                    cin >> grupe[i].vard >> grupe[i].pav;
-                    cout << endl;
-                    grupe[i].rez_egz=1.0 + rand() / (RAND_MAX / (10.0 - 1.0));
-                }
-                else if(pasirinkimas==3){
-                    grupe[i].vard = vardai[rand() % vardai.size()];
-                    grupe[i].pav = pavardes[rand() % pavardes.size()];
-                    grupe[i].rez_egz = 1.0 + rand() / (RAND_MAX / (10.0 - 1.0));
-                }
-
-                int m;//namu darbu skaicius
-                if(pasirinkimas==1){
-                    do
-                    {
-                    cout << "Studento " << grupe[i].vard << " " << grupe[i].pav << " " << "namu darbu uzduociu kiekis: ";
-                    cin >> m;
-                    } while (m<0);
-                }
-                else if (pasirinkimas==2 || pasirinkimas==3){
-                    m = 1 + rand() % M;   
-                }
-
-                grupe[i].rez_nd.resize(m + 1);
-
-                int sum = 0;
-                for (int j = 0; j < m; j++) {
-                    if (pasirinkimas == 1) {
-                        do {
-                            cout << "Studento " << grupe[i].vard << " " << grupe[i].pav << " " << j + 1 << "-os uzduoties rezultatas(1-10): ";
-                            cin >> grupe[i].rez_nd[j];
-                        } while (grupe[i].rez_nd[j] < 0 || grupe[i].rez_nd[j] > 10);
-                        sum += grupe[i].rez_nd[j];
-                    }
-                    else if (pasirinkimas==2 || pasirinkimas==3){
-                        double randomNumber = 1.0 + rand() / (RAND_MAX / (10.0 - 1.0));
-                        grupe[i].rez_nd[j] = randomNumber;
-                    }
-                }
-                //mediana
-                grupe[i].rez_nd[m] = grupe[i].rez_egz;
-
-                for (int h = 0; h < m + 1; h++) {
-                    for (int j = 0; j < m; j++) {
-                        if (grupe[i].rez_nd[j] > grupe[i].rez_nd[j + 1]) {
-                            int temp = grupe[i].rez_nd[j];
-                            grupe[i].rez_nd[j] = grupe[i].rez_nd[j + 1];
-                            grupe[i].rez_nd[j + 1] = temp;
-                        }
-                    }
-                }
-
-                if ((m + 1) % 2 != 0)
-                    grupe[i].med = grupe[i].rez_nd[(m + 1) / 2];
-                else
-                    grupe[i].med = (grupe[i].rez_nd[m / 2] + grupe[i].rez_nd[(m + 1) / 2]) / 2.0;
-
-                grupe[i].vid = (double)sum / m;
-
-            }
-            cout << endl;
-            cout << "Vardas        Pavarde       Galutinis (Vid.) /  Galutinis (Med.)" << endl
-                 << "----------------------------------------------------------------" << endl;
-            for (int i = 0; i < n; i++) {
-                double galutinis = (0.4 * (grupe[i].vid)) + (0.6 * (grupe[i].rez_egz));
-                double mediana = grupe[i].med;
-                cout << left << setw(14) << grupe[i].vard << left << setw(14) << grupe[i].pav << left << setw(20) << setprecision(2) << galutinis << left << setw(14) << setprecision(2) << mediana << endl;
-            }
-        }
-        cout << "----------------------------------------------------------------\n";
-        cout << endl;
-    } while (pasirinkimas != 4);
-
+    } while (pasirinkimas != '5');
     return 0;
 }
+
+void pasirinkimas1(vector<stud>& grupe) {
+    int n;
+    cout << "Kiek studentu yra grupeje? ";
+    cin >> n;
+    grupe.resize(n);
+    for (int i = 0; i < n; ++i) {
+        cout << "studento vardas ir pavarde: ";
+        cin >> grupe[i].vard >> grupe[i].pav;
+        cout << "studento egzamino rezultatas(1-10): ";
+        cin >> grupe[i].rez_egz;
+        cout << "Namu darbu kiekis: ";
+        int m;
+        cin >> m;
+        grupe[i].rez_nd.resize(m);
+        for (int j = 0; j < m; ++j) {
+            cout << j + 1 << "-os uzduoties rezultatas(1-10): ";
+            cin >> grupe[i].rez_nd[j];
+        }
+        MedianaVidurkis(grupe[i]);
+    }
+    printrez(grupe);
+}
+
+void pasirinkimas2(vector<stud>& grupe) {
+    int n;
+    cout << "Kiek studentu yra grupeje? ";
+    cin >> n;
+    grupe.resize(n);
+    for (int i = 0; i < n; ++i) {
+        cout << "studento vardas ir pavarde: ";
+        cin >> grupe[i].vard >> grupe[i].pav;
+        grupe[i].rez_egz = 1 + rand() % 10;;
+        int m = 1 + rand() % M;
+        grupe[i].rez_nd.resize(m);
+        for (int j = 0; j < m; ++j) {
+            grupe[i].rez_nd[j] = 1 + rand() % 10;
+        }
+        MedianaVidurkis(grupe[i]);
+    }
+    printrez(grupe);
+}
+
+void pasirinkimas3(vector<stud>& grupe) {
+    int n;
+    cout << "Kiek studentu yra grupeje? ";
+
+    cin >> n;
+    grupe.resize(n);
+    for (int i = 0; i < n; ++i) {
+        grupe[i].vard = "Vardas" + to_string(1 + rand() % 10);
+        grupe[i].pav = "Pavarde" + to_string(1 + rand() % 10);
+        grupe[i].rez_egz = 1 + rand() % 10;;
+        int m = 1 + rand() % M;
+        grupe[i].rez_nd.resize(m);
+        for (int j = 0; j < m; ++j) {
+            grupe[i].rez_nd[j] = 1 + rand() % 10;
+        }
+        MedianaVidurkis(grupe[i]);
+    }
+    printrez(grupe);
+}
+
+void printrez(const vector<stud>& grupe) {
+    char vid_med;
+    double a = -1;
+    cout << "Skaiciuoti galutini ivertinima naudojant vidurki ar mediana? (v, m) ";
+    do{
+    cin >> vid_med;
+    }while(vid_med!='v'&&vid_med!='m');
+    cout << "Vardas              Pavarde             "; if (vid_med == 'v') cout <<"Galutinis (Vid.)"<< endl;
+                                            else if (vid_med == 'm') cout <<"Galutinis (Med.)"<< endl;
+    cout << "--------------------------------------------------------" << endl;
+    for (int i = 0; i < grupe.size(); i++) {
+        if (vid_med == 'v') a = grupe[i].vid;
+        else if (vid_med == 'm') a = grupe[i].med;
+        double galutinis = (0.4 * a) + (0.6 * grupe[i].rez_egz);
+        cout << left << setw(20) << grupe[i].vard << left << setw(20) << grupe[i].pav << left << setw(20) << setprecision(2) << galutinis << endl;
+    }
+    cout << "--------------------------------------------------------\n";
+    cout << endl;
+}
+
+void MedianaVidurkis(stud& grupe) {
+    sort(grupe.rez_nd.begin(), grupe.rez_nd.end());
+    int m_size = grupe.rez_nd.size();
+    if (m_size % 2 != 0)
+        grupe.med = grupe.rez_nd[m_size / 2];
+    else
+        grupe.med = (grupe.rez_nd[m_size / 2 - 1] + grupe.rez_nd[m_size / 2]) / 2.0;
+
+    double sum = 0;
+    for (double pazym : grupe.rez_nd) {
+        sum += pazym;
+    }
+    grupe.vid = sum / m_size;
+}
+void pasirinkimas4(vector<stud>& grupe) {
+    ifstream file("studentai10000.txt"); // Open the file
+    if (!file) {
+        cout << "Nepavyko atidaryti failo." << endl;
+        return;
+    }
+
+    string line;
+    getline(file, line); // Skip the first line
+
+    int expected_size = 15; // Default size assuming 15 elements for rez_nd in this file
+    while (getline(file, line)) {
+        istringstream iss(line);
+        stud student;
+        iss >> student.vard >> student.pav;
+
+        // Resize rez_nd based on the expected size
+        student.rez_nd.resize(expected_size);
+
+        // Read rez_nd values
+        for (int j = 0; j < expected_size; ++j) {
+            if (iss.eof()) {
+                // If there are fewer values than expected, adjust the size
+                student.rez_nd.resize(j);
+                break;
+            }
+            iss >> student.rez_nd[j];
+        }
+
+        iss >> student.rez_egz;
+        MedianaVidurkis(student);
+        grupe.push_back(student);
+    }
+
+    file.close();
+    //printrez i faila*************
+    ofstream fr("rezultatai.txt");
+    char vid_med;
+    double a = -1;
+    cout << "Skaiciuoti galutini ivertinima naudojant vidurki ar mediana? (v, m) ";
+    do{
+    cin >> vid_med;
+    }while(vid_med!='v'&&vid_med!='m');
+    fr << "Vardas              Pavarde             "; if (vid_med == 'v') fr <<"Galutinis (Vid.)"<< endl;
+                                            else if (vid_med == 'm') fr <<"Galutinis (Med.)"<< endl;
+    fr << "--------------------------------------------------------" << endl;
+    for (int i = 0; i < grupe.size(); i++) {
+        if (vid_med == 'v') a = grupe[i].vid;
+        else if (vid_med == 'm') a = grupe[i].med;
+        double galutinis = (0.4 * a) + (0.6 * grupe[i].rez_egz);
+        fr << left << setw(20) << grupe[i].vard << left << setw(20) << grupe[i].pav << left << setw(20) << setprecision(2) << galutinis << endl;
+    }
+    fr << "--------------------------------------------------------\n";
+    fr.close();
+    //**********
+}
+
