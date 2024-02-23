@@ -125,7 +125,7 @@ void printrez(const vector<stud>& grupe) {
         if (vid_med == 'v') a = grupe[i].vid;
         else if (vid_med == 'm') a = grupe[i].med;
         double galutinis = (0.4 * a) + (0.6 * grupe[i].rez_egz);
-        cout << left << setw(20) << grupe[i].vard << left << setw(20) << grupe[i].pav << left << setw(20) << setprecision(2) << galutinis << endl;
+        cout << left << setw(20) << grupe[i].vard << left << setw(20) << grupe[i].pav << left << setw(20) << setprecision(3) << galutinis << endl;
     }
     cout << "--------------------------------------------------------\n";
     cout << endl;
@@ -146,16 +146,26 @@ void MedianaVidurkis(stud& grupe) {
     grupe.vid = sum / m_size;
 }
 void pasirinkimas4(vector<stud>& grupe) {
-    ifstream file("studentai10000.txt"); // Open the file
+    system("dir *.txt");
+    string filename;
+    cin >> filename;
+    ifstream file(filename); // Open the file
     if (!file) {
         cout << "Nepavyko atidaryti failo." << endl;
         return;
     }
 
     string line;
-    getline(file, line); // Skip the first line
+    int word_count = 0; // Count of words in the first line
+    // Read the first line to count the number of words
+    getline(file, line);
+    istringstream iss_first(line);
+    while (iss_first >> line) {
+        word_count++;
+    }
 
-    int expected_size = 15; // Default size assuming 15 elements for rez_nd in this file
+    int expected_size = word_count - 3; // Deducting 2 for name and surname
+    // Read data for each student from the file
     while (getline(file, line)) {
         istringstream iss(line);
         stud student;
@@ -195,7 +205,7 @@ void pasirinkimas4(vector<stud>& grupe) {
         if (vid_med == 'v') a = grupe[i].vid;
         else if (vid_med == 'm') a = grupe[i].med;
         double galutinis = (0.4 * a) + (0.6 * grupe[i].rez_egz);
-        fr << left << setw(20) << grupe[i].vard << left << setw(20) << grupe[i].pav << left << setw(20) << setprecision(2) << galutinis << endl;
+        fr << left << setw(20) << grupe[i].vard << left << setw(20) << grupe[i].pav << left << setw(20) << setprecision(3) << galutinis << endl;
     }
     fr << "--------------------------------------------------------\n";
     fr.close();
