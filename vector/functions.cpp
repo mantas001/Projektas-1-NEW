@@ -6,7 +6,7 @@
 #include <sstream>
 #include <algorithm>
 using namespace std;
-const int M = 15; // namu darbu uzduociu kiekis kai generuojama atsitiktinai
+const int M = 15; //namu darbu uzduociu kiekis kai generuojama atsitiktinai
 
     Student_class::Student_class(){
         vard_ = " ";
@@ -37,7 +37,6 @@ const int M = 15; // namu darbu uzduociu kiekis kai generuojama atsitiktinai
         galut_iv_ = 0.0;
     };
 
-
 void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
     
     try {
@@ -49,7 +48,7 @@ void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
             throw runtime_error("Netinkamas studentu skaicius.");
         }
         
-        // Resize the vector to accommodate 'n' students
+        //Resize vector to 'n' students
         grupe.resize(n);
         string vardas, pavarde;
         for (int i = 0; i < n; ++i) {
@@ -57,7 +56,7 @@ void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
             cout << "Studento vardas ir pavarde: ";
             cin >> vardas >> pavarde;
             
-            // Set the student's name using setter functions
+            //Set vard pav
             grupe[i].setVard(vardas);
             grupe[i].setPav(pavarde);
             
@@ -68,7 +67,7 @@ void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
                 throw runtime_error("Netinkamas egzamino rezultatas.");
             }
             
-            // Set the exam result using setter function
+            //Set egz
             grupe[i].setRezEgz(rez_egz_temp);
             
             cout << "Namu darbu kiekis: ";
@@ -78,7 +77,7 @@ void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
                 throw runtime_error("Netinkamas namu darbu kiekis.");
             }
             
-            // Resize the vector to accommodate 'm' homework results and initialize elements to zero
+            //Resize vector to 'm' homework results
             grupe[i].getRezNd().resize(m, 0.0);
 
 
@@ -91,37 +90,19 @@ void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
                 if (cin.fail() || rez_nd_temp < 1 || rez_nd_temp > 10) {
                     throw runtime_error("Netinkamas namu darbo rezultatas.");
                 }
-
-                // Add the homework result using the method
+                //Add the homework result using the method
                 grupe[i].addGradeToRezNd(rez_nd_temp);
             }
-
-            // Print out size and values of rez_nd_ vector
-            cout << "Size of rez_nd_ vector after adding grades: " << grupe[i].getRezNd().size() << endl;
-            for (double grade : grupe[i].getRezNd()) {
-                cout << grade << " ";
-            }
-            cout << endl;
-
-
-            
-            // Calculate median and average for each student
-            MedianaVidurkis(grupe[i]); // <<<<<<---------------------------sitaip, o ne sitaip student.MedianaVidurkis(student);
-        
+            MedianaVidurkis(grupe[i]);
         }
+        printrez(grupe);
 
-        
-            // Print results for all students
-            printrez(grupe);
-
-        
     } catch (const exception& e) {
         cerr << "Klaida: " << e.what() << endl;
-        cin.clear(); // Clear error flags
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore invalid input
+        cin.clear(); //Clear error flags
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); //Ignore invalid input
     }
 }
-
 
 void Student_class::pasirinkimas2(std::vector<Student_class>& grupe) {
     
@@ -149,16 +130,14 @@ void Student_class::pasirinkimas2(std::vector<Student_class>& grupe) {
                 grupe[i].addGradeToRezNd(1 + rand() % 10);
             }
             MedianaVidurkis(grupe[i]);
-
         }
         printrez(grupe);
     } catch (const exception& e) {
         cerr << "Klaida: " << e.what() << endl;
-        cin.clear(); // Clear error flags
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore invalid input
+        cin.clear(); //Clear error flags
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); //Ignore invalid input
     }
 }
-
 
 void Student_class::pasirinkimas3(std::vector<Student_class>& grupe) {
     
@@ -186,8 +165,8 @@ void Student_class::pasirinkimas3(std::vector<Student_class>& grupe) {
         printrez(grupe);
     } catch (const exception& e) {
         cerr << "Klaida: " << e.what() << endl;
-        cin.clear(); // Clear error flags
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore invalid input
+        cin.clear(); //Clear error flags
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); //Ignore invalid input
     }
 }
 
@@ -201,7 +180,7 @@ void Student_class::printrez(std::vector<Student_class>& grupe) {
         }
     } while (vid_med != "v" && vid_med != "m");
 
-    // Calculate final grades
+    //Calculate final grades
     for (int i = 0; i < grupe.size(); i++) {
         double a = (vid_med == "v") ? grupe[i].getVid() : grupe[i].getMed();
         double galutinis = (0.4 * a) + (0.6 * grupe[i].getRezEgz());
@@ -226,10 +205,10 @@ void Student_class::printrez(std::vector<Student_class>& grupe) {
 }
 
 void Student_class::MedianaVidurkis(Student_class& grupe) {
-    // Access and modify vid and med using the getter and setter methods
+    //Access and modify vid and med using the getter and setter methods
     const std::vector<double>& rez_nd_temp = grupe.getRezNd();
 
-    // Make a copy of rez_nd and sort it
+    //Make a copy of rez_nd and sort it
     std::vector<double> sorted_rez_nd = rez_nd_temp;
     std::sort(sorted_rez_nd.begin(), sorted_rez_nd.end());
     
@@ -255,42 +234,42 @@ void Student_class::pasirinkimas4(std::vector<Student_class>& grupe) {
     cout << "Irasykite duomenu failo pavadinima (kuriame yra vardas, pavarde, n namu darbu kiekis ir egzamino rezultatas): ";
     cin >> filename;
     try {
-        ifstream file(filename); // Open the file
+        ifstream file(filename); //Open the file
         if (!file) {
             throw runtime_error("Nepavyko atidaryti failo.");
         }
 
         string line;
-        int word_count = 0; // Count of words in the first line
-        // Read the first line to count the number of words
+        int word_count = 0; //Count of words in the first line
+        //Read the first line to count the number of words
         getline(file, line);
         istringstream iss_first(line);
         while (iss_first >> line) {
             word_count++;
         }
 
-        int expected_size = word_count - 3; // Deducting 3 for name and surname and rez_egz
-        // Read data for each student from the file
+        int expected_size = word_count - 3; //Deducting 3 for name and surname and rez_egz
+        //Read data for each student from the file
         auto start = std::chrono::high_resolution_clock::now();
         int eilutes=0;
         while (getline(file, line)) {
             
             eilutes++;
-            Student_class student; // Create a new student object
+            Student_class student; //Create a new student object
             std::string vardas, pavarde;
             istringstream iss(line);
             iss >> vardas >> pavarde;
             student.setVard(vardas);
             student.setPav(pavarde);
 
-            // Resize rez_nd based on the expected size
+            //Resize rez_nd based on the expected size
             student.getRezNd().resize(expected_size, 0.0);
 
-            // Read rez_nd values
+            //Read rez_nd values
             for (int j = 0; j < expected_size; ++j) {
                 double rez_nd_temp;
                 if (!(iss >> rez_nd_temp)) {
-                    // Handle the case where there are fewer values than expected
+                    //Handle the case where there are fewer values than expected
                     student.getRezNd().resize(j);
                     break;
                 }
@@ -304,13 +283,13 @@ void Student_class::pasirinkimas4(std::vector<Student_class>& grupe) {
             student.setRezEgz(rez_egz_temp);
             
             student.MedianaVidurkis(student);
-            grupe.push_back(student); // Add the student to the vector
+            grupe.push_back(student); //Add the student to the vector
         }
 
 
 
 
-        std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now()-start; // Skirtumas (s)
+        std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now()-start; //Skirtumas (s)
         string pav_temp = "rezultatai" + to_string(eilutes) + ".txt";
         ofstream fr(pav_temp);
         fr <<"Nuskaityti duomenis uztruko: "<< diff.count() << " s\n";
@@ -345,7 +324,7 @@ void Student_class::pasirinkimas4(std::vector<Student_class>& grupe) {
         for (int i = 0; i < grupe.size(); i++) {
             fr << left << setw(20) << grupe[i].getVard() << left << setw(20) << grupe[i].getPav() << left << setw(20) << setprecision(3) << grupe[i].getGalutIv() << endl;
         }
-        diff = std::chrono::high_resolution_clock::now()-start; // Skirtumas (s)
+        diff = std::chrono::high_resolution_clock::now()-start; //Skirtumas (s)
         fr << "--------------------------------------------------------\n";
         fr <<"Irasyti duomenis uztruko: "<< diff.count() << " s\n";
         fr.close();
@@ -371,7 +350,7 @@ void Student_class::sorting(std::vector<Student_class>& grupe){
     }while(sort_order!="d"&&sort_order!="m");
 
     switch (sort_choice[0]) {
-    case 'v': // Assuming 'v' represents sorting by name
+    case 'v': //Assuming 'v' represents sorting by name
         if (sort_order == "d") {
             sort(grupe.begin(), grupe.end(), [](const Student_class& a, const Student_class& b) {
                 return (a.getVard() < b.getVard());
@@ -382,7 +361,7 @@ void Student_class::sorting(std::vector<Student_class>& grupe){
             });
         }
         break;
-    case 'p': // Assuming 'p' represents sorting by name
+    case 'p': //Assuming 'p' represents sorting by name
         if (sort_order == "d") {
             sort(grupe.begin(), grupe.end(), [](const Student_class& a, const Student_class& b) {
                 return (a.getPav() < b.getPav());
@@ -393,7 +372,7 @@ void Student_class::sorting(std::vector<Student_class>& grupe){
             });
         }
         break;
-    case 'g': // Assuming 'g' represents sorting by grade
+    case 'g': //Assuming 'g' represents sorting by grade
         if (sort_order == "d") {
             sort(grupe.begin(), grupe.end(), [](const Student_class& a, const Student_class& b) {
                 return (a.getGalutIv() < b.getGalutIv());
@@ -425,7 +404,7 @@ void Student_class::pasirinkimas6(std::vector<Student_class>& grupe, std::string
         return;
     }
 
-    // Read the file into a buffer
+    //Read the file into a buffer
     my_buffer << file.rdbuf();
     file.close();
 
@@ -442,14 +421,14 @@ void Student_class::pasirinkimas6(std::vector<Student_class>& grupe, std::string
         istringstream iss(line);
         Student_class student;
 
-        string vardas, pavarde; // Temporary variables for name and surname
+        string vardas, pavarde; //Temporary variables for name and surname
 
         if (!(iss >> vardas >> pavarde)) {
             cerr << "Error reading student's name and surname.\n";
             continue;
         }
 
-        // Set the name and surname using setter functions
+        //Set the name and surname using setter functions
         student.setVard(vardas);
         student.setPav(pavarde);
 
@@ -458,7 +437,7 @@ void Student_class::pasirinkimas6(std::vector<Student_class>& grupe, std::string
             student.addGradeToRezNd(grade);
         }
 
-        // To retrieve the rez_nd vector
+        //To retrieve the rez_nd vector
         std::vector<double> grades = student.getRezNd();
 
         if (student.isRezNdEmpty()) {
@@ -486,7 +465,7 @@ void Student_class::pasirinkimas6(std::vector<Student_class>& grupe, std::string
         if (vid_med != "v" && vid_med != "m") cout << "Netinkama ivestis(irasykite 'v' arba 'm'): ";
     } while (vid_med != "v" && vid_med != "m");
 
-    // Calculate final grades
+    //Calculate final grades
     double a = -1;
     for (int i = 0; i < grupe.size(); i++) {
         double a = (vid_med == "v") ? grupe[i].getVid() : grupe[i].getMed();
@@ -553,15 +532,15 @@ void Student_class::duomenu_sukurimas(std::vector<Student_class>& grupe, std::ch
     duom_create_diff = std::chrono::high_resolution_clock::now()-duom_create_start;
 }
 void Student_class::saunuoliai_vargsai(std::vector<Student_class>& grupe, std::vector<Student_class>& vargsai) {
-    // Partition the grupe vector based on below_5 condition using a lambda function
+    //Partition the grupe vector based on below_5 condition using a lambda function
     auto partition_point = std::partition(grupe.begin(), grupe.end(), [](const Student_class& student) {
         return student.getGalutIv() < 5;
     });
 
-    // Move the partitioned elements to vargsai
+    //Move the partitioned elements to vargsai
     std::move(partition_point, grupe.end(), std::back_inserter(vargsai));
 
-    // Erase the partitioned elements from grupe
+    //Erase the partitioned elements from grupe
     grupe.erase(partition_point, grupe.end());
 }
 bool below_5(const Student_class& student) {
