@@ -28,7 +28,7 @@ int main() {
             cout << "Pasirinkimas: ";
             cin >> pasirinkimas;
         } while (!(pasirinkimas == "1" || pasirinkimas == "2" || pasirinkimas == "3" || pasirinkimas == "4"|| pasirinkimas == "5"|| pasirinkimas == "6"|| pasirinkimas == "7"));
-        if (pasirinkimas == "1")      grupe.pasirinkimas1(student_group);// Call member function on the instance of Student_class
+        if (pasirinkimas == "1")      grupe.pasirinkimas1(student_group); // Call member function on the instance of Student_class
         else if (pasirinkimas == "2") grupe.pasirinkimas2(student_group);
         else if (pasirinkimas == "3") grupe.pasirinkimas3(student_group);
         else if (pasirinkimas == "4") grupe.pasirinkimas4(student_group);
