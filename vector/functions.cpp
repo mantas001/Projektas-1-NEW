@@ -26,7 +26,7 @@ const int M = 15; //namu darbu uzduociu kiekis kai generuojama atsitiktinai
         med_= med;
         galut_iv_= galut_iv;
     };
-    
+
     Student_class::~Student_class(){
         vard_ = " ";
         pav_ = " ";
@@ -46,7 +46,7 @@ void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
             throw runtime_error("Netinkamas studentu skaicius.");
         }
         
-        //Resize vector to 'n' students
+        //Resize vector to n students
         grupe.resize(n);
         string vardas, pavarde;
         for (int i = 0; i < n; ++i) {
@@ -75,7 +75,7 @@ void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
                 throw runtime_error("Netinkamas namu darbu kiekis.");
             }
             
-            //Resize vector to 'm' homework results
+            //Resize vector to'm homework results
             grupe[i].getRezNd().resize(m, 0.0);
 
 
@@ -94,7 +94,7 @@ void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
             MedianaVidurkis(grupe[i]);
         }
         printrez(grupe);
-
+        grupe.clear();
     } catch (const exception& e) {
         cerr << "Klaida: " << e.what() << endl;
         cin.clear(); //Clear error flags
@@ -128,6 +128,7 @@ void Student_class::pasirinkimas2(std::vector<Student_class>& grupe) {
             MedianaVidurkis(grupe[i]);
         }
         printrez(grupe);
+        grupe.clear();
     } catch (const exception& e) {
         cerr << "Klaida: " << e.what() << endl;
         cin.clear(); //Clear error flags
@@ -156,6 +157,7 @@ void Student_class::pasirinkimas3(std::vector<Student_class>& grupe) {
             MedianaVidurkis(grupe[i]);
         }
         printrez(grupe);
+        grupe.clear();
     } catch (const exception& e) {
         cerr << "Klaida: " << e.what() << endl;
         cin.clear(); //Clear error flags
@@ -479,15 +481,15 @@ void Student_class::pasirinkimas6(std::vector<Student_class>& grupe, std::string
 
     std::chrono::duration<double> duom_write_diff = std::chrono::high_resolution_clock::now() - duom_write_start;
 
-    grupe.clear();
-    vargsai.clear();
-
     cout << "***********************************************************" << endl;
     cout << "Nuskaityti " << eilutes << " irasu uztruko: " << duom_read_diff.count() << " s\n";
     cout << "Surikiuoti " << eilutes << " irasu uztruko: " << duom_sort_diff.count() << " s\n";
     cout << "Irasyti " << eilutes << " irasu uztruko: " << duom_write_diff.count() << " s\n";
     cout << "***********************************************************" << endl;
     cout << endl;
+
+    grupe.clear();
+    vargsai.clear();
 }
 
 void Student_class::duomenu_sukurimas(std::vector<Student_class>& grupe, std::chrono::duration<double>& duom_create_diff, int& duom){
