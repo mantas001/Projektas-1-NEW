@@ -15,12 +15,11 @@ private:
     double galut_iv_;
 
 public:
-    // Constructor
+
     Student_class();
     Student_class(std::string vard, std::string pav, std::vector<double> rez_nd, double rez_egz, double vid, double med, double galut_iv);
     ~Student_class(); // Destructor
 
-    // Getter and setter functions
     std::string getVard() const { return vard_; }
     void setVard(const std::string& vard) { vard_ = vard; }
 
@@ -52,8 +51,6 @@ public:
         }
     }
 
-    
-    // Function declarations
     void pasirinkimas1(std::vector<Student_class>& grupe);
     void pasirinkimas2(std::vector<Student_class>& grupe);
     void pasirinkimas3(std::vector<Student_class>& grupe);
