@@ -208,7 +208,6 @@ void Student_class::printrez(std::vector<Student_class>& grupe) {
         grupe[i].setGalutIv(galutinis);
     }
 
-    // Sort students
     sorting(grupe);
 
     cout << "Vardas              Pavarde             "; 
@@ -228,27 +227,21 @@ void Student_class::printrez(std::vector<Student_class>& grupe) {
 
 void Student_class::MedianaVidurkis(Student_class& grupe) {
     // Access and modify vid and med using the getter and setter methods
-    const std::vector<double>& rez_nd = grupe.getRezNd();
+    const std::vector<double>& rez_nd_temp = grupe.getRezNd();
 
-    // Check if the rez_nd vector is empty
-    if (rez_nd.empty()) {
-        std::cerr << "Error: rez_nd vector is empty." << std::endl;
-        return;
-    }
-    
     // Make a copy of rez_nd and sort it
-    std::vector<double> sorted_rez_nd = rez_nd;
+    std::vector<double> sorted_rez_nd = rez_nd_temp;
     std::sort(sorted_rez_nd.begin(), sorted_rez_nd.end());
     
     int m_size = sorted_rez_nd.size();
     
-    // Calculate median
+    //mediana
     if (m_size % 2 != 0)
         grupe.setMed(sorted_rez_nd[m_size / 2]);
     else
         grupe.setMed((sorted_rez_nd[m_size / 2 - 1] + sorted_rez_nd[m_size / 2]) / 2.0);
 
-    // Calculate average
+    //vidurkis
     double sum = 0;
     for (int i = 0; i < m_size; ++i) {
         sum += sorted_rez_nd[i];
