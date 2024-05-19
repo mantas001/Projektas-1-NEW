@@ -38,9 +38,7 @@ const int M = 15; //namu darbu uzduociu kiekis kai generuojama atsitiktinai
     };
 
 void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
-    
     try {
-        Student_class student;
         int n;
         cout << "Kiek studentu yra grupeje? ";
         cin >> n;
@@ -105,9 +103,7 @@ void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
 }
 
 void Student_class::pasirinkimas2(std::vector<Student_class>& grupe) {
-    
     try {
-        Student_class student;
         int n;
         cout << "Kiek studentu yra grupeje? ";
         cin >> n;
@@ -140,9 +136,7 @@ void Student_class::pasirinkimas2(std::vector<Student_class>& grupe) {
 }
 
 void Student_class::pasirinkimas3(std::vector<Student_class>& grupe) {
-    
     try{
-        Student_class student;
         int n;
         cout << "Kiek studentu yra grupeje? ";
         cin >> n;
@@ -160,7 +154,6 @@ void Student_class::pasirinkimas3(std::vector<Student_class>& grupe) {
                 grupe[i].addGradeToRezNd(1 + rand() % 10);
             }
             MedianaVidurkis(grupe[i]);
-
         }
         printrez(grupe);
     } catch (const exception& e) {
@@ -186,9 +179,7 @@ void Student_class::printrez(std::vector<Student_class>& grupe) {
         double galutinis = (0.4 * a) + (0.6 * grupe[i].getRezEgz());
         grupe[i].setGalutIv(galutinis);
     }
-
     sorting(grupe);
-
     cout << "Vardas              Pavarde             "; 
     if (vid_med == "v") 
         cout << "Galutinis (Vid.)" << endl;
@@ -208,7 +199,7 @@ void Student_class::MedianaVidurkis(Student_class& grupe) {
     //Access and modify vid and med using the getter and setter methods
     const std::vector<double>& rez_nd_temp = grupe.getRezNd();
 
-    //Make a copy of rez_nd and sort it
+    //copy of rez_nd
     std::vector<double> sorted_rez_nd = rez_nd_temp;
     std::sort(sorted_rez_nd.begin(), sorted_rez_nd.end());
     
@@ -234,21 +225,20 @@ void Student_class::pasirinkimas4(std::vector<Student_class>& grupe) {
     cout << "Irasykite duomenu failo pavadinima (kuriame yra vardas, pavarde, n namu darbu kiekis ir egzamino rezultatas): ";
     cin >> filename;
     try {
-        ifstream file(filename); //Open the file
+        ifstream file(filename);
         if (!file) {
             throw runtime_error("Nepavyko atidaryti failo.");
         }
 
         string line;
-        int word_count = 0; //Count of words in the first line
-        //Read the first line to count the number of words
+        int word_count = 0;
         getline(file, line);
         istringstream iss_first(line);
         while (iss_first >> line) {
             word_count++;
         }
 
-        int expected_size = word_count - 3; //Deducting 3 for name and surname and rez_egz
+        int expected_size = word_count - 3;
         //Read data for each student from the file
         auto start = std::chrono::high_resolution_clock::now();
         int eilutes=0;
@@ -286,9 +276,6 @@ void Student_class::pasirinkimas4(std::vector<Student_class>& grupe) {
             grupe.push_back(student); //Add the student to the vector
         }
 
-
-
-
         std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now()-start; //Skirtumas (s)
         string pav_temp = "rezultatai" + to_string(eilutes) + ".txt";
         ofstream fr(pav_temp);
@@ -302,7 +289,7 @@ void Student_class::pasirinkimas4(std::vector<Student_class>& grupe) {
         if (vid_med!="v"&&vid_med!="m") cout << "Netinkama ivestis(irasykite 'v' arba 'm'): ";
         }while(vid_med!="v"&&vid_med!="m");
 
-        //galutinis***************
+        //galutinis
         double a = -1;
         for (int i = 0; i < grupe.size(); i++) {
             if (vid_med == "v") a = grupe[i].getVid();
@@ -310,13 +297,8 @@ void Student_class::pasirinkimas4(std::vector<Student_class>& grupe) {
             double galutinis = (0.4 * a) + (0.6 * grupe[i].getRezEgz());
             grupe[i].setGalutIv(galutinis);
         }
-        //************************
-
-        //rikiavimas
         sorting(grupe);
-        //**********
 
-        //printrez i faila*************
         fr << "Vardas              Pavarde             "; if (vid_med == "v") fr <<"Galutinis (Vid.)"<< endl;
                                                 else if (vid_med == "m") fr <<"Galutinis (Med.)"<< endl;
         fr << "--------------------------------------------------------" << endl;
@@ -328,7 +310,7 @@ void Student_class::pasirinkimas4(std::vector<Student_class>& grupe) {
         fr << "--------------------------------------------------------\n";
         fr <<"Irasyti duomenis uztruko: "<< diff.count() << " s\n";
         fr.close();
-        //**********
+
     } catch (const exception& e) {
         cerr << "Klaida: " << e.what() << endl;
     }
@@ -350,7 +332,7 @@ void Student_class::sorting(std::vector<Student_class>& grupe){
     }while(sort_order!="d"&&sort_order!="m");
 
     switch (sort_choice[0]) {
-    case 'v': //Assuming 'v' represents sorting by name
+    case 'v': //pagal varda
         if (sort_order == "d") {
             sort(grupe.begin(), grupe.end(), [](const Student_class& a, const Student_class& b) {
                 return (a.getVard() < b.getVard());
@@ -361,7 +343,7 @@ void Student_class::sorting(std::vector<Student_class>& grupe){
             });
         }
         break;
-    case 'p': //Assuming 'p' represents sorting by name
+    case 'p': //pagal pavarde
         if (sort_order == "d") {
             sort(grupe.begin(), grupe.end(), [](const Student_class& a, const Student_class& b) {
                 return (a.getPav() < b.getPav());
@@ -372,7 +354,7 @@ void Student_class::sorting(std::vector<Student_class>& grupe){
             });
         }
         break;
-    case 'g': //Assuming 'g' represents sorting by grade
+    case 'g': //pagal galutini ivertinima
         if (sort_order == "d") {
             sort(grupe.begin(), grupe.end(), [](const Student_class& a, const Student_class& b) {
                 return (a.getGalutIv() < b.getGalutIv());
@@ -388,13 +370,13 @@ void Student_class::sorting(std::vector<Student_class>& grupe){
             return;
     }
 }
+
 void Student_class::pasirinkimas6(std::vector<Student_class>& grupe, std::string& filename2, int& duom, std::chrono::duration<double>& duom_create_diff) {
     system("dir *.txt");
     string filename;
     cout << "Irasykite duomenu failo pavadinima (kuriame yra vardas, pavarde ir galutinis ivertinimas): ";
     cin >> filename;
 
-    //vector<stud> saunuoliai;
     vector<Student_class> vargsai;
 
     stringstream my_buffer;
@@ -404,7 +386,6 @@ void Student_class::pasirinkimas6(std::vector<Student_class>& grupe, std::string
         return;
     }
 
-    //Read the file into a buffer
     my_buffer << file.rdbuf();
     file.close();
 
@@ -421,14 +402,13 @@ void Student_class::pasirinkimas6(std::vector<Student_class>& grupe, std::string
         istringstream iss(line);
         Student_class student;
 
-        string vardas, pavarde; //Temporary variables for name and surname
+        string vardas, pavarde; //temp
 
         if (!(iss >> vardas >> pavarde)) {
             cerr << "Error reading student's name and surname.\n";
             continue;
         }
 
-        //Set the name and surname using setter functions
         student.setVard(vardas);
         student.setPav(pavarde);
 
@@ -436,8 +416,6 @@ void Student_class::pasirinkimas6(std::vector<Student_class>& grupe, std::string
         while (iss >> grade) {
             student.addGradeToRezNd(grade);
         }
-
-        //To retrieve the rez_nd vector
         std::vector<double> grades = student.getRezNd();
 
         if (student.isRezNdEmpty()) {
@@ -465,7 +443,7 @@ void Student_class::pasirinkimas6(std::vector<Student_class>& grupe, std::string
         if (vid_med != "v" && vid_med != "m") cout << "Netinkama ivestis(irasykite 'v' arba 'm'): ";
     } while (vid_med != "v" && vid_med != "m");
 
-    //Calculate final grades
+    //galutinis
     double a = -1;
     for (int i = 0; i < grupe.size(); i++) {
         double a = (vid_med == "v") ? grupe[i].getVid() : grupe[i].getMed();
@@ -513,7 +491,6 @@ void Student_class::pasirinkimas6(std::vector<Student_class>& grupe, std::string
 }
 
 void Student_class::duomenu_sukurimas(std::vector<Student_class>& grupe, std::chrono::duration<double>& duom_create_diff, int& duom){
-    //int duom;
     cout << "Kiek eiluciu duomenu generuoti? ";
     cin >> duom;
     string filename2="duomenys" + to_string(duom) + ".txt";
@@ -531,6 +508,7 @@ void Student_class::duomenu_sukurimas(std::vector<Student_class>& grupe, std::ch
     fr.close();
     duom_create_diff = std::chrono::high_resolution_clock::now()-duom_create_start;
 }
+
 void Student_class::saunuoliai_vargsai(std::vector<Student_class>& grupe, std::vector<Student_class>& vargsai) {
     //Partition the grupe vector based on below_5 condition using a lambda function
     auto partition_point = std::partition(grupe.begin(), grupe.end(), [](const Student_class& student) {
@@ -543,6 +521,7 @@ void Student_class::saunuoliai_vargsai(std::vector<Student_class>& grupe, std::v
     //Erase the partitioned elements from grupe
     grupe.erase(partition_point, grupe.end());
 }
+
 bool below_5(const Student_class& student) {
     return student.getGalutIv() < 5;
 }
