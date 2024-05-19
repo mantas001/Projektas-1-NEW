@@ -45,7 +45,6 @@ void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
         if (cin.fail() || n <= 0) {
             throw runtime_error("Netinkamas studentu skaicius.");
         }
-        
         //Resize vector to n students
         grupe.resize(n);
         string vardas, pavarde;
@@ -77,7 +76,6 @@ void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
             
             //Resize vector to'm homework results
             grupe[i].getRezNd().resize(m, 0.0);
-
 
             cout << "Size of rez_nd_ vector after resizing: " << grupe[i].getRezNd().size() << endl;
 
@@ -384,7 +382,7 @@ void Student_class::pasirinkimas6(std::vector<Student_class>& grupe, std::string
     stringstream my_buffer;
     ifstream file(filename);
     if (!file) {
-        cerr << "Error: Could not open the file.\n";
+        cerr << "Klaida: Nepavyko atidaryti failo\n";
         return;
     }
 
@@ -407,7 +405,7 @@ void Student_class::pasirinkimas6(std::vector<Student_class>& grupe, std::string
         string vardas, pavarde; //temp
 
         if (!(iss >> vardas >> pavarde)) {
-            cerr << "Error reading student's name and surname.\n";
+            cerr << "Klaida: Nepavyko nuskaityti vardu ir pavardziu\n";
             continue;
         }
 
@@ -421,7 +419,7 @@ void Student_class::pasirinkimas6(std::vector<Student_class>& grupe, std::string
         std::vector<double> grades = student.getRezNd();
 
         if (student.isRezNdEmpty()) {
-            cerr << "Error: No grades found for student.\n";
+            cerr << "Klaida: Nepavyko nuskaityti pazymiu\n";
             continue;
         }
 
