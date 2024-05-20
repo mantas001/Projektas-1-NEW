@@ -41,9 +41,8 @@ public:
 
     Student_class& operator=(Student_class&& other) noexcept;
 
-
-
-
+    friend istream& operator>>(istream& is, Student_class& student);
+    friend ostream& operator<<(ostream& os, const Student_class& student);
 
     string getVard() const { return vard_; }
     void setVard(const string& vard) { vard_ = vard; }

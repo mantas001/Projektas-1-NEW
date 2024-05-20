@@ -54,7 +54,23 @@ const int M = 15; //namu darbu uzduociu kiekis kai generuojama atsitiktinai
     return *this;
     }
 
-void Student_class::pasirinkimas1(vector<Student_class>& grupe) {
+    istream& operator>>(istream& is, Student_class& student) {
+        // Read data into the student object
+        cout << "Studento vardas ir pavarde: ";
+        is >> student.vard_ >> student.pav_;
+        // You can add more input prompts and read more data here
+        return is;
+    }
+
+    // Output operator
+    ostream& operator<<(ostream& os, const Student_class& student) {
+        // Print data from the student object
+        os << "Studento vardas ir pavarde: " << student.vard_ << " " << student.pav_;
+        // You can print more data here if needed
+        return os;
+    }
+
+void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
     try {
         int n;
         cout << "Kiek studentu yra grupeje? ";
@@ -70,7 +86,6 @@ void Student_class::pasirinkimas1(vector<Student_class>& grupe) {
             cout << "Studento vardas ir pavarde: ";
             cin >> vardas >> pavarde;
             
-            //Set vard pav
             grupe[i].setVard(vardas);
             grupe[i].setPav(pavarde);
             
@@ -91,7 +106,6 @@ void Student_class::pasirinkimas1(vector<Student_class>& grupe) {
                 throw runtime_error("Netinkamas namu darbu kiekis.");
             }
             
-            //Resize vector to'm homework results
             grupe[i].getRezNd().resize(m, 0.0);
 
             for (int j = 0; j < m; ++j) {
@@ -101,7 +115,6 @@ void Student_class::pasirinkimas1(vector<Student_class>& grupe) {
                 if (cin.fail() || rez_nd_temp < 1 || rez_nd_temp > 10) {
                     throw runtime_error("Netinkamas namu darbo rezultatas.");
                 }
-                //Add the homework result using the method
                 grupe[i].addGradeToRezNd(rez_nd_temp);
             }
             MedianaVidurkis(grupe[i]);
@@ -237,7 +250,7 @@ void Student_class::MedianaVidurkis(Student_class& grupe) {
 void Student_class::pasirinkimas4(vector<Student_class>& grupe) {
     system("dir *.txt");
     string filename;
-    cout << "Irasykite duomenu failo pavadinima (kuriame yra vardas, pavarde, n namu darbu kiekis ir egzamino rezultatas): ";
+    cout << "Irasykite duomenu failo pavadinima (duomenysn.txt): ";
     cin >> filename;
     try {
         ifstream file(filename);
@@ -389,7 +402,7 @@ void Student_class::sorting(vector<Student_class>& grupe){
 void Student_class::pasirinkimas6(vector<Student_class>& grupe, string& filename2, int& duom, chrono::duration<double>& duom_create_diff) {
     system("dir *.txt");
     string filename;
-    cout << "Irasykite duomenu failo pavadinima (kuriame yra vardas, pavarde ir galutinis ivertinimas): ";
+    cout << "Irasykite duomenu failo pavadinima (rezultatain.txt): ";
     cin >> filename;
 
     vector<Student_class> vargsai;
@@ -541,28 +554,34 @@ bool below_5(const Student_class& student) {
     return student.getGalutIv() < 5;
 }
 
-void Student_class::testas(){
-
-    cout << endl << endl << endl;
+void Student_class::testas() {
+    cout << endl << endl;
 
     // Create an object
-    Student_class obj1("Vardas", "Pavarde", {10, 9, 8}, 9, 0, 0, 0); // Initialize with initial values
+    Student_class obj1; // Initialize with default constructor
+    cin >> obj1; // Input data from the user
+
+    // Print the object
+    cout << "duomenys panaudojant: ostream& operator<<(ostream& os, const Student_class& student) " << obj1 << endl;
 
     // Test copy constructor
     Student_class obj2(obj1);
-    cout << "Copy constructor: " << obj2.getVard() << endl;
+    cout << "Copy constructor: " << obj2 << endl;
 
     // Test copy assignment operator
     Student_class obj3;
     obj3 = obj1;
-    cout << "Copy assignment operator: " << obj3.getVard() << endl;
+    cout << "Copy assignment operator: " << obj3 << endl;
 
     // Test move constructor
     Student_class obj4(move(obj1));
-    cout << "Move constructor: " << obj4.getVard() << endl;
+    cout << "Move constructor: " << obj4 << endl;
 
     // Test move assignment operator
     Student_class obj5;
     obj5 = move(obj2);
-    cout << "Move assignment operator: " << obj5.getVard() << endl << endl << endl;
+    cout << "Move assignment operator: " << obj5 << endl;
+
+    obj2.clear();
+    cout << "Destructor: " << obj2 << endl << endl;
 }
