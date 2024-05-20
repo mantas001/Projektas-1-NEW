@@ -11,7 +11,7 @@ const int M = 15; //namu darbu uzduociu kiekis kai generuojama atsitiktinai
     Student_class::Student_class() 
         : vard_(""), pav_(""), rez_nd_(), rez_egz_(0.0), vid_(0.0), med_(0.0), galut_iv_(0.0) {}
 
-    Student_class::Student_class(std::string vard, std::string pav, std::vector<double> rez_nd, double rez_egz, double vid, double med, double galut_iv)
+    Student_class::Student_class(string vard, string pav, vector<double> rez_nd, double rez_egz, double vid, double med, double galut_iv)
         : vard_(vard), pav_(pav), rez_nd_(rez_nd), rez_egz_(rez_egz), vid_(vid), med_(med), galut_iv_(galut_iv) {}
 
     Student_class::~Student_class() {
@@ -36,15 +36,15 @@ const int M = 15; //namu darbu uzduociu kiekis kai generuojama atsitiktinai
     }
 
     Student_class::Student_class(Student_class&& other) noexcept
-    : vard_(std::move(other.vard_)), pav_(std::move(other.pav_)), rez_nd_(std::move(other.rez_nd_)), rez_egz_(other.rez_egz_), vid_(other.vid_), med_(other.med_), galut_iv_(other.galut_iv_) {
+    : vard_(move(other.vard_)), pav_(move(other.pav_)), rez_nd_(move(other.rez_nd_)), rez_egz_(other.rez_egz_), vid_(other.vid_), med_(other.med_), galut_iv_(other.galut_iv_) {
     other.clear();
     }
 
     Student_class& Student_class::operator=(Student_class&& other) noexcept {
     if (this != &other) {
-        vard_ = std::move(other.vard_);
-        pav_ = std::move(other.pav_);
-        rez_nd_ = std::move(other.rez_nd_);
+        vard_ = move(other.vard_);
+        pav_ = move(other.pav_);
+        rez_nd_ = move(other.rez_nd_);
         rez_egz_ = other.rez_egz_;
         vid_ = other.vid_;
         med_ = other.med_;
@@ -54,7 +54,7 @@ const int M = 15; //namu darbu uzduociu kiekis kai generuojama atsitiktinai
     return *this;
     }
 
-void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
+void Student_class::pasirinkimas1(vector<Student_class>& grupe) {
     try {
         int n;
         cout << "Kiek studentu yra grupeje? ";
@@ -115,7 +115,7 @@ void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
     }
 }
 
-void Student_class::pasirinkimas2(std::vector<Student_class>& grupe) {
+void Student_class::pasirinkimas2(vector<Student_class>& grupe) {
     try {
         int n;
         cout << "Kiek studentu yra grupeje? ";
@@ -149,7 +149,7 @@ void Student_class::pasirinkimas2(std::vector<Student_class>& grupe) {
     }
 }
 
-void Student_class::pasirinkimas3(std::vector<Student_class>& grupe) {
+void Student_class::pasirinkimas3(vector<Student_class>& grupe) {
     try{
         int n;
         cout << "Kiek studentu yra grupeje? ";
@@ -178,7 +178,7 @@ void Student_class::pasirinkimas3(std::vector<Student_class>& grupe) {
     }
 }
 
-void Student_class::printrez(std::vector<Student_class>& grupe) {
+void Student_class::printrez(vector<Student_class>& grupe) {
     string vid_med;
     cout << "Skaiciuoti galutini ivertinima naudojant vidurki ar mediana? (v, m) ";
     do {
@@ -212,11 +212,11 @@ void Student_class::printrez(std::vector<Student_class>& grupe) {
 
 void Student_class::MedianaVidurkis(Student_class& grupe) {
     // Access and modify vid and med using the getter and setter methods
-    const std::vector<double>& rez_nd_temp = grupe.getRezNd();
+    const vector<double>& rez_nd_temp = grupe.getRezNd();
 
     // Copy of rez_nd
-    std::vector<double> sorted_rez_nd = rez_nd_temp;
-    std::sort(sorted_rez_nd.begin(), sorted_rez_nd.end());
+    vector<double> sorted_rez_nd = rez_nd_temp;
+    sort(sorted_rez_nd.begin(), sorted_rez_nd.end());
     
     int m_size = sorted_rez_nd.size();
     
@@ -234,7 +234,7 @@ void Student_class::MedianaVidurkis(Student_class& grupe) {
     grupe.setVid(sum / m_size);
 }
 
-void Student_class::pasirinkimas4(std::vector<Student_class>& grupe) {
+void Student_class::pasirinkimas4(vector<Student_class>& grupe) {
     system("dir *.txt");
     string filename;
     cout << "Irasykite duomenu failo pavadinima (kuriame yra vardas, pavarde, n namu darbu kiekis ir egzamino rezultatas): ";
@@ -255,13 +255,13 @@ void Student_class::pasirinkimas4(std::vector<Student_class>& grupe) {
 
         int expected_size = word_count - 3;
         //Read data for each student from the file
-        auto start = std::chrono::high_resolution_clock::now();
+        auto start = chrono::high_resolution_clock::now();
         int eilutes=0;
         while (getline(file, line)) {
             
             eilutes++;
             Student_class student; //Create a new student object
-            std::string vardas, pavarde;
+            string vardas, pavarde;
             istringstream iss(line);
             iss >> vardas >> pavarde;
             student.setVard(vardas);
@@ -291,7 +291,7 @@ void Student_class::pasirinkimas4(std::vector<Student_class>& grupe) {
             grupe.push_back(student); //Add the student to the vector
         }
 
-        std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now()-start; //Skirtumas (s)
+        chrono::duration<double> diff = chrono::high_resolution_clock::now()-start; //Skirtumas (s)
         string pav_temp = "rezultatai" + to_string(eilutes) + ".txt";
         ofstream fr(pav_temp);
         fr <<"Nuskaityti duomenis uztruko: "<< diff.count() << " s\n";
@@ -317,11 +317,11 @@ void Student_class::pasirinkimas4(std::vector<Student_class>& grupe) {
         fr << "Vardas              Pavarde             "; if (vid_med == "v") fr <<"Galutinis (Vid.)"<< endl;
                                                 else if (vid_med == "m") fr <<"Galutinis (Med.)"<< endl;
         fr << "--------------------------------------------------------" << endl;
-        start = std::chrono::high_resolution_clock::now();
+        start = chrono::high_resolution_clock::now();
         for (int i = 0; i < grupe.size(); i++) {
             fr << left << setw(20) << grupe[i].getVard() << left << setw(20) << grupe[i].getPav() << left << setw(20) << setprecision(3) << grupe[i].getGalutIv() << endl;
         }
-        diff = std::chrono::high_resolution_clock::now()-start; //Skirtumas (s)
+        diff = chrono::high_resolution_clock::now()-start; //Skirtumas (s)
         fr << "--------------------------------------------------------\n";
         fr <<"Irasyti duomenis uztruko: "<< diff.count() << " s\n";
         fr.close();
@@ -332,7 +332,7 @@ void Student_class::pasirinkimas4(std::vector<Student_class>& grupe) {
     grupe.clear();
 }
 
-void Student_class::sorting(std::vector<Student_class>& grupe){
+void Student_class::sorting(vector<Student_class>& grupe){
     string sort_choice, sort_order;
     cout << "Rikiuoti pagal (v - vardas, p - pavarde, g - galutinis ivertinimas): ";
     do{
@@ -386,7 +386,7 @@ void Student_class::sorting(std::vector<Student_class>& grupe){
     }
 }
 
-void Student_class::pasirinkimas6(std::vector<Student_class>& grupe, std::string& filename2, int& duom, std::chrono::duration<double>& duom_create_diff) {
+void Student_class::pasirinkimas6(vector<Student_class>& grupe, string& filename2, int& duom, chrono::duration<double>& duom_create_diff) {
     system("dir *.txt");
     string filename;
     cout << "Irasykite duomenu failo pavadinima (kuriame yra vardas, pavarde ir galutinis ivertinimas): ";
@@ -412,7 +412,7 @@ void Student_class::pasirinkimas6(std::vector<Student_class>& grupe, std::string
     }
 
     int eilutes = 0;
-    auto duom_read_start = std::chrono::high_resolution_clock::now();
+    auto duom_read_start = chrono::high_resolution_clock::now();
     for (const string& line : splited) {
         istringstream iss(line);
         Student_class student;
@@ -431,7 +431,7 @@ void Student_class::pasirinkimas6(std::vector<Student_class>& grupe, std::string
         while (iss >> grade) {
             student.addGradeToRezNd(grade);
         }
-        std::vector<double> grades = student.getRezNd();
+        vector<double> grades = student.getRezNd();
 
         if (student.isRezNdEmpty()) {
             cerr << "Klaida: Nepavyko nuskaityti pazymiu\n";
@@ -440,16 +440,16 @@ void Student_class::pasirinkimas6(std::vector<Student_class>& grupe, std::string
 
         student.setRezEgzFromRezNd();
 
-        std::chrono::high_resolution_clock::time_point end_reading = std::chrono::high_resolution_clock::now();
+        chrono::high_resolution_clock::time_point end_reading = chrono::high_resolution_clock::now();
 
         eilutes++;
 
         MedianaVidurkis(student);
 
-        grupe.push_back(std::move(student));
+        grupe.push_back(move(student));
     }
 
-    std::chrono::duration<double> duom_read_diff = std::chrono::high_resolution_clock::now() - duom_read_start;
+    chrono::duration<double> duom_read_diff = chrono::high_resolution_clock::now() - duom_read_start;
 
     string vid_med;
     cout << "Skaiciuoti galutini ivertinima naudojant vidurki ar mediana? (v, m) ";
@@ -466,9 +466,9 @@ void Student_class::pasirinkimas6(std::vector<Student_class>& grupe, std::string
         grupe[i].setGalutIv(galutinis);
     }
 
-    auto duom_sort_start = std::chrono::high_resolution_clock::now();
+    auto duom_sort_start = chrono::high_resolution_clock::now();
     saunuoliai_vargsai(grupe, vargsai);
-    std::chrono::duration<double> duom_sort_diff = std::chrono::high_resolution_clock::now() - duom_sort_start;
+    chrono::duration<double> duom_sort_diff = chrono::high_resolution_clock::now() - duom_sort_start;
 
     cout << "Rusiuojami saunuoliai" << endl;
     sorting(grupe);
@@ -477,7 +477,7 @@ void Student_class::pasirinkimas6(std::vector<Student_class>& grupe, std::string
 
     string ofstreamfile = "saunuoliai" + to_string(eilutes) + ".txt";
     ofstream saunuoliai_file(ofstreamfile);
-    auto duom_write_start = std::chrono::high_resolution_clock::now();
+    auto duom_write_start = chrono::high_resolution_clock::now();
     for (const auto& student : vargsai) {
         saunuoliai_file << left << setw(20) << student.getVard() << setw(20) << student.getPav() << setw(10) << fixed << setprecision(2) << student.getGalutIv() << endl;
     }
@@ -492,7 +492,7 @@ void Student_class::pasirinkimas6(std::vector<Student_class>& grupe, std::string
 
     vargsai_file.close();
 
-    std::chrono::duration<double> duom_write_diff = std::chrono::high_resolution_clock::now() - duom_write_start;
+    chrono::duration<double> duom_write_diff = chrono::high_resolution_clock::now() - duom_write_start;
 
     cout << "***********************************************************" << endl;
     cout << "Nuskaityti " << eilutes << " irasu uztruko: " << duom_read_diff.count() << " s\n";
@@ -505,11 +505,11 @@ void Student_class::pasirinkimas6(std::vector<Student_class>& grupe, std::string
     vargsai.clear();
 }
 
-void Student_class::duomenu_sukurimas(std::vector<Student_class>& grupe, std::chrono::duration<double>& duom_create_diff, int& duom){
+void Student_class::duomenu_sukurimas(vector<Student_class>& grupe, chrono::duration<double>& duom_create_diff, int& duom){
     cout << "Kiek eiluciu duomenu generuoti? ";
     cin >> duom;
     string filename2="duomenys" + to_string(duom) + ".txt";
-    auto duom_create_start = std::chrono::high_resolution_clock::now();
+    auto duom_create_start = chrono::high_resolution_clock::now();
     ofstream fr(filename2);
     fr << "Vardas              Pavarde             ND1       ND2       ND3       ND4       ND5       ND6       ND7       ND8       ND9       ND10      ND11      ND12      ND13      ND14      ND15      Egz." << endl;
     for (int i=0; i<duom; i++){
@@ -521,17 +521,17 @@ void Student_class::duomenu_sukurimas(std::vector<Student_class>& grupe, std::ch
         fr << endl;
     }
     fr.close();
-    duom_create_diff = std::chrono::high_resolution_clock::now()-duom_create_start;
+    duom_create_diff = chrono::high_resolution_clock::now()-duom_create_start;
 }
 
-void Student_class::saunuoliai_vargsai(std::vector<Student_class>& grupe, std::vector<Student_class>& vargsai) {
+void Student_class::saunuoliai_vargsai(vector<Student_class>& grupe, vector<Student_class>& vargsai) {
     //Partition the grupe vector based on below_5 condition using a lambda function
-    auto partition_point = std::partition(grupe.begin(), grupe.end(), [](const Student_class& student) {
+    auto partition_point = partition(grupe.begin(), grupe.end(), [](const Student_class& student) {
         return student.getGalutIv() < 5;
     });
 
     //Move the partitioned elements to vargsai
-    std::move(partition_point, grupe.end(), std::back_inserter(vargsai));
+    move(partition_point, grupe.end(), back_inserter(vargsai));
 
     //Erase the partitioned elements from grupe
     grupe.erase(partition_point, grupe.end());
@@ -543,26 +543,26 @@ bool below_5(const Student_class& student) {
 
 void Student_class::testas(){
 
-    std::cout << std::endl << std::endl << std::endl;
+    cout << endl << endl << endl;
 
     // Create an object
     Student_class obj1("Vardas", "Pavarde", {10, 9, 8}, 9, 0, 0, 0); // Initialize with initial values
 
     // Test copy constructor
     Student_class obj2(obj1);
-    std::cout << "Copy constructor: " << obj2.getVard() << std::endl;
+    cout << "Copy constructor: " << obj2.getVard() << endl;
 
     // Test copy assignment operator
     Student_class obj3;
     obj3 = obj1;
-    std::cout << "Copy assignment operator: " << obj3.getVard() << std::endl;
+    cout << "Copy assignment operator: " << obj3.getVard() << endl;
 
     // Test move constructor
-    Student_class obj4(std::move(obj1));
-    std::cout << "Move constructor: " << obj4.getVard() << std::endl;
+    Student_class obj4(move(obj1));
+    cout << "Move constructor: " << obj4.getVard() << endl;
 
     // Test move assignment operator
     Student_class obj5;
-    obj5 = std::move(obj2);
-    std::cout << "Move assignment operator: " << obj5.getVard() << std::endl << std::endl << std::endl;
+    obj5 = move(obj2);
+    cout << "Move assignment operator: " << obj5.getVard() << endl << endl << endl;
 }

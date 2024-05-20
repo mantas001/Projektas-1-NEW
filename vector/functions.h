@@ -5,10 +5,12 @@
 #include <string>
 #include <chrono>
 
+using namespace std;
+
 class Student_class {
 private:
-    std::string vard_, pav_;
-    std::vector<double> rez_nd_;
+    string vard_, pav_;
+    vector<double> rez_nd_;
     double rez_egz_;
     double vid_;
     double med_;
@@ -27,7 +29,7 @@ private:
 public:
 
     Student_class();
-    Student_class(std::string vard, std::string pav, std::vector<double> rez_nd, double rez_egz, double vid, double med, double galut_iv);
+    Student_class(string vard, string pav, vector<double> rez_nd, double rez_egz, double vid, double med, double galut_iv);
 
     ~Student_class();
 
@@ -43,14 +45,14 @@ public:
 
 
 
-    std::string getVard() const { return vard_; }
-    void setVard(const std::string& vard) { vard_ = vard; }
+    string getVard() const { return vard_; }
+    void setVard(const string& vard) { vard_ = vard; }
 
-    std::string getPav() const { return pav_; }
-    void setPav(const std::string& pav) { pav_ = pav; }
+    string getPav() const { return pav_; }
+    void setPav(const string& pav) { pav_ = pav; }
 
-    std::vector<double> getRezNd() const { return rez_nd_; }
-    void setRezNd(const std::vector<double>& rez_nd) { rez_nd_ = rez_nd; }
+    vector<double> getRezNd() const { return rez_nd_; }
+    void setRezNd(const vector<double>& rez_nd) { rez_nd_ = rez_nd; }
 
     double getRezEgz() const { return rez_egz_; }
     void setRezEgz(double rez_egz) { rez_egz_ = rez_egz; }
@@ -74,16 +76,16 @@ public:
         }
     }
 
-    void pasirinkimas1(std::vector<Student_class>& grupe);
-    void pasirinkimas2(std::vector<Student_class>& grupe);
-    void pasirinkimas3(std::vector<Student_class>& grupe);
-    void pasirinkimas6(std::vector<Student_class>& grupe, std::string& filename2, int& duom, std::chrono::duration<double>& duom_create_diff);
-    void printrez(std::vector<Student_class>& grupe);
+    void pasirinkimas1(vector<Student_class>& grupe);
+    void pasirinkimas2(vector<Student_class>& grupe);
+    void pasirinkimas3(vector<Student_class>& grupe);
+    void pasirinkimas6(vector<Student_class>& grupe, string& filename2, int& duom, chrono::duration<double>& duom_create_diff);
+    void printrez(vector<Student_class>& grupe);
     void MedianaVidurkis(Student_class& student);
-    void pasirinkimas4(std::vector<Student_class>& grupe);
-    void sorting(std::vector<Student_class>& grupe);
-    void saunuoliai_vargsai(std::vector<Student_class>& grupe, std::vector<Student_class>& vargsai);
-    void duomenu_sukurimas(std::vector<Student_class>& grupe, std::chrono::duration<double>& duom_create_diff, int& duom);
+    void pasirinkimas4(vector<Student_class>& grupe);
+    void sorting(vector<Student_class>& grupe);
+    void saunuoliai_vargsai(vector<Student_class>& grupe, vector<Student_class>& vargsai);
+    void duomenu_sukurimas(vector<Student_class>& grupe, chrono::duration<double>& duom_create_diff, int& duom);
     bool below_5(const Student_class& student);
 
     void testas();
