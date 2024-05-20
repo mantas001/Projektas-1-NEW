@@ -14,11 +14,33 @@ private:
     double med_;
     double galut_iv_;
 
+    void clear() {
+        vard_.clear();
+        pav_.clear();
+        rez_nd_.clear();
+        rez_egz_ = 0.0;
+        vid_ = 0.0;
+        med_ = 0.0;
+        galut_iv_ = 0.0;
+    }
+
 public:
 
     Student_class();
     Student_class(std::string vard, std::string pav, std::vector<double> rez_nd, double rez_egz, double vid, double med, double galut_iv);
     ~Student_class(); // Destructor
+
+    Student_class(const Student_class& other);
+
+    Student_class& operator=(const Student_class& other);
+
+    Student_class(Student_class&& other) noexcept;
+
+    Student_class& operator=(Student_class&& other) noexcept;
+
+
+
+
 
     std::string getVard() const { return vard_; }
     void setVard(const std::string& vard) { vard_ = vard; }

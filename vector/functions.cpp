@@ -8,34 +8,51 @@
 using namespace std;
 const int M = 15; //namu darbu uzduociu kiekis kai generuojama atsitiktinai
 
-    Student_class::Student_class(){
-        vard_ = " ";
-        pav_ = " ";
-        rez_nd_.resize(0);
-        rez_egz_= {};
-        vid_= {};
-        med_= {};
-        galut_iv_= {};
-    };
-    Student_class::Student_class(std::string vard, std::string pav, std::vector<double> rez_nd, double rez_egz, double vid, double med, double galut_iv){
-        vard_ = vard;
-        pav_ = pav;
-        rez_nd_ = rez_nd;
-        rez_egz_= rez_egz;
-        vid_= vid;
-        med_= med;
-        galut_iv_= galut_iv;
-    };
+    Student_class::Student_class() 
+        : vard_(""), pav_(""), rez_nd_(), rez_egz_(0.0), vid_(0.0), med_(0.0), galut_iv_(0.0) {}
 
-    Student_class::~Student_class(){
-        vard_ = " ";
-        pav_ = " ";
-        rez_nd_.clear();
-        rez_egz_ = 0.0;
-        vid_ = 0.0;
-        med_ = 0.0;
-        galut_iv_ = 0.0;
-    };
+    Student_class::Student_class(std::string vard, std::string pav, std::vector<double> rez_nd, double rez_egz, double vid, double med, double galut_iv)
+        : vard_(vard), pav_(pav), rez_nd_(rez_nd), rez_egz_(rez_egz), vid_(vid), med_(med), galut_iv_(galut_iv) {}
+
+    Student_class::~Student_class() {
+        clear();
+    }
+
+    Student_class::Student_class(const Student_class& other)
+        : vard_(other.vard_), pav_(other.pav_), rez_nd_(other.rez_nd_),
+          rez_egz_(other.rez_egz_), vid_(other.vid_), med_(other.med_), galut_iv_(other.galut_iv_) {}
+
+    Student_class& Student_class::operator=(const Student_class& other) {
+    if (this != &other) {
+        vard_ = other.vard_;
+        pav_ = other.pav_;
+        rez_nd_ = other.rez_nd_;
+        rez_egz_ = other.rez_egz_;
+        vid_ = other.vid_;
+        med_ = other.med_;
+        galut_iv_ = other.galut_iv_;
+    }
+    return *this;
+    }
+
+    Student_class::Student_class(Student_class&& other) noexcept
+    : vard_(std::move(other.vard_)), pav_(std::move(other.pav_)), rez_nd_(std::move(other.rez_nd_)), rez_egz_(other.rez_egz_), vid_(other.vid_), med_(other.med_), galut_iv_(other.galut_iv_) {
+    other.clear();
+    }
+
+    Student_class& Student_class::operator=(Student_class&& other) noexcept {
+    if (this != &other) {
+        vard_ = std::move(other.vard_);
+        pav_ = std::move(other.pav_);
+        rez_nd_ = std::move(other.rez_nd_);
+        rez_egz_ = other.rez_egz_;
+        vid_ = other.vid_;
+        med_ = other.med_;
+        galut_iv_ = other.galut_iv_;
+        other.clear();
+    }
+    return *this;
+    }
 
 void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
     try {
@@ -76,8 +93,6 @@ void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
             
             //Resize vector to'm homework results
             grupe[i].getRezNd().resize(m, 0.0);
-
-            cout << "Size of rez_nd_ vector after resizing: " << grupe[i].getRezNd().size() << endl;
 
             for (int j = 0; j < m; ++j) {
                 cout << j + 1 << "-os uzduoties rezultatas (1-10): ";
@@ -196,27 +211,27 @@ void Student_class::printrez(std::vector<Student_class>& grupe) {
 }
 
 void Student_class::MedianaVidurkis(Student_class& grupe) {
-    //Access and modify vid and med using the getter and setter methods
+    // Access and modify vid and med using the getter and setter methods
     const std::vector<double>& rez_nd_temp = grupe.getRezNd();
 
-    //copy of rez_nd
+    // Copy of rez_nd
     std::vector<double> sorted_rez_nd = rez_nd_temp;
     std::sort(sorted_rez_nd.begin(), sorted_rez_nd.end());
     
     int m_size = sorted_rez_nd.size();
     
-    //mediana
+    // Mediana
     if (m_size % 2 != 0)
         grupe.setMed(sorted_rez_nd[m_size / 2]);
     else
         grupe.setMed((sorted_rez_nd[m_size / 2 - 1] + sorted_rez_nd[m_size / 2]) / 2.0);
 
-    //vidurkis
+    // Vidurkis
     double sum = 0;
     for (int i = 0; i < m_size; ++i) {
         sum += sorted_rez_nd[i];
     }
-    grupe.setVid(sum/m_size);
+    grupe.setVid(sum / m_size);
 }
 
 void Student_class::pasirinkimas4(std::vector<Student_class>& grupe) {
