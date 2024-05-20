@@ -28,7 +28,8 @@ public:
 
     Student_class();
     Student_class(std::string vard, std::string pav, std::vector<double> rez_nd, double rez_egz, double vid, double med, double galut_iv);
-    ~Student_class(); // Destructor
+
+    ~Student_class();
 
     Student_class(const Student_class& other);
 
@@ -84,6 +85,8 @@ public:
     void saunuoliai_vargsai(std::vector<Student_class>& grupe, std::vector<Student_class>& vargsai);
     void duomenu_sukurimas(std::vector<Student_class>& grupe, std::chrono::duration<double>& duom_create_diff, int& duom);
     bool below_5(const Student_class& student);
+
+    void testas();
 };
 
 #endif

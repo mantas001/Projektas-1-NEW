@@ -540,3 +540,29 @@ void Student_class::saunuoliai_vargsai(std::vector<Student_class>& grupe, std::v
 bool below_5(const Student_class& student) {
     return student.getGalutIv() < 5;
 }
+
+void Student_class::testas(){
+
+    std::cout << std::endl << std::endl << std::endl;
+
+    // Create an object
+    Student_class obj1("Vardas", "Pavarde", {10, 9, 8}, 9, 0, 0, 0); // Initialize with initial values
+
+    // Test copy constructor
+    Student_class obj2(obj1);
+    std::cout << "Copy constructor: " << obj2.getVard() << std::endl;
+
+    // Test copy assignment operator
+    Student_class obj3;
+    obj3 = obj1;
+    std::cout << "Copy assignment operator: " << obj3.getVard() << std::endl;
+
+    // Test move constructor
+    Student_class obj4(std::move(obj1));
+    std::cout << "Move constructor: " << obj4.getVard() << std::endl;
+
+    // Test move assignment operator
+    Student_class obj5;
+    obj5 = std::move(obj2);
+    std::cout << "Move assignment operator: " << obj5.getVard() << std::endl << std::endl << std::endl;
+}
