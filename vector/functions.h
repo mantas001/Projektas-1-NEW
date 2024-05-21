@@ -7,9 +7,19 @@
 
 using namespace std;
 
-class Student_class {
-private:
+class Zmogus {
+protected:
     string vard_, pav_;
+
+    Zmogus(const string& vard, const string& pav) //constructor'ius protected = no zmogus objects
+            : vard_(vard), pav_(pav) {}
+public:
+
+    virtual ~Zmogus() = default;
+};
+
+class Student_class : public Zmogus {
+private:
     vector<double> rez_nd_;
     double rez_egz_;
     double vid_;
@@ -27,42 +37,32 @@ private:
     }
 
 public:
-
     Student_class();
     Student_class(string vard, string pav, vector<double> rez_nd, double rez_egz, double vid, double med, double galut_iv);
-
     ~Student_class();
 
     Student_class(const Student_class& other);
-
     Student_class& operator=(const Student_class& other);
-
     Student_class(Student_class&& other) noexcept;
-
     Student_class& operator=(Student_class&& other) noexcept;
 
     friend istream& operator>>(istream& is, Student_class& student);
     friend ostream& operator<<(ostream& os, const Student_class& student);
 
     string getVard() const { return vard_; }
-    void setVard(const string& vard) { vard_ = vard; }
-
     string getPav() const { return pav_; }
-    void setPav(const string& pav) { pav_ = pav; }
-
     vector<double> getRezNd() const { return rez_nd_; }
-    void setRezNd(const vector<double>& rez_nd) { rez_nd_ = rez_nd; }
-
     double getRezEgz() const { return rez_egz_; }
-    void setRezEgz(double rez_egz) { rez_egz_ = rez_egz; }
-
     double getVid() const { return vid_; }
-    void setVid(double vid) { vid_ = vid; }
-
     double getMed() const { return med_; }
-    void setMed(double med) { med_ = med; }
-
     double getGalutIv() const { return galut_iv_; }
+
+    void setVard(const string& vard) { vard_ = vard; }
+    void setPav(const string& pav) { pav_ = pav; }
+    void setRezNd(const vector<double>& rez_nd) { rez_nd_ = rez_nd; }
+    void setRezEgz(double rez_egz) { rez_egz_ = rez_egz; }
+    void setVid(double vid) { vid_ = vid; }
+    void setMed(double med) { med_ = med; }
     void setGalutIv(double galut_iv) { galut_iv_ = galut_iv; }
 
     void addGradeToRezNd(double grade) { rez_nd_.push_back(grade); }
@@ -86,8 +86,9 @@ public:
     void saunuoliai_vargsai(vector<Student_class>& grupe, vector<Student_class>& vargsai);
     void duomenu_sukurimas(vector<Student_class>& grupe, chrono::duration<double>& duom_create_diff, int& duom);
     bool below_5(const Student_class& student);
-
     void testas();
 };
+
+
 
 #endif

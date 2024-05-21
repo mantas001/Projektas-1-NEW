@@ -25,7 +25,7 @@ int main() {
             cout << "5 - Generuoti naujus duomenis" << endl;
             cout << "6 - Suskirstyti studentus" << endl;
             cout << "7 - Baigti darba" << endl;
-            cout << "testas - testas 1.2 uzduociai" << endl;
+            cout << "testas - testas uzduociai" << endl;
             cout << "Pasirinkimas: ";
             cin >> pasirinkimas;
         } while (!(pasirinkimas == "1" || pasirinkimas == "2" || pasirinkimas == "3" || pasirinkimas == "4"|| pasirinkimas == "5"|| pasirinkimas == "6"|| pasirinkimas == "7"|| pasirinkimas == "testas"));

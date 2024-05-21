@@ -9,49 +9,48 @@ using namespace std;
 const int M = 15; //namu darbu uzduociu kiekis kai generuojama atsitiktinai
 
     Student_class::Student_class() 
-        : vard_(""), pav_(""), rez_nd_(), rez_egz_(0.0), vid_(0.0), med_(0.0), galut_iv_(0.0) {}
+    : Zmogus("", ""), rez_nd_(), rez_egz_(0.0), vid_(0.0), med_(0.0), galut_iv_(0.0) {}
 
     Student_class::Student_class(string vard, string pav, vector<double> rez_nd, double rez_egz, double vid, double med, double galut_iv)
-        : vard_(vard), pav_(pav), rez_nd_(rez_nd), rez_egz_(rez_egz), vid_(vid), med_(med), galut_iv_(galut_iv) {}
+    : Zmogus(vard, pav), rez_nd_(rez_nd), rez_egz_(rez_egz), vid_(vid), med_(med), galut_iv_(galut_iv) {}
 
     Student_class::~Student_class() {
+        cout << "destructor'ius veikia!!!" << endl << endl;//eilute testui
         clear();
     }
 
     Student_class::Student_class(const Student_class& other)
-        : vard_(other.vard_), pav_(other.pav_), rez_nd_(other.rez_nd_),
-          rez_egz_(other.rez_egz_), vid_(other.vid_), med_(other.med_), galut_iv_(other.galut_iv_) {}
+    : Zmogus(other), rez_nd_(other.rez_nd_), rez_egz_(other.rez_egz_), vid_(other.vid_), med_(other.med_), galut_iv_(other.galut_iv_) {}
+
 
     Student_class& Student_class::operator=(const Student_class& other) {
-    if (this != &other) {
-        vard_ = other.vard_;
-        pav_ = other.pav_;
-        rez_nd_ = other.rez_nd_;
-        rez_egz_ = other.rez_egz_;
-        vid_ = other.vid_;
-        med_ = other.med_;
-        galut_iv_ = other.galut_iv_;
-    }
-    return *this;
+        if (this != &other) {
+            Zmogus::operator=(other);
+            rez_nd_ = other.rez_nd_;
+            rez_egz_ = other.rez_egz_;
+            vid_ = other.vid_;
+            med_ = other.med_;
+            galut_iv_ = other.galut_iv_;
+        }
+        return *this;
     }
 
     Student_class::Student_class(Student_class&& other) noexcept
-    : vard_(move(other.vard_)), pav_(move(other.pav_)), rez_nd_(move(other.rez_nd_)), rez_egz_(other.rez_egz_), vid_(other.vid_), med_(other.med_), galut_iv_(other.galut_iv_) {
+    : Zmogus(move(other.vard_), move(other.pav_)), rez_nd_(move(other.rez_nd_)), rez_egz_(other.rez_egz_), vid_(other.vid_), med_(other.med_), galut_iv_(other.galut_iv_) {
     other.clear();
     }
 
     Student_class& Student_class::operator=(Student_class&& other) noexcept {
-    if (this != &other) {
-        vard_ = move(other.vard_);
-        pav_ = move(other.pav_);
-        rez_nd_ = move(other.rez_nd_);
-        rez_egz_ = other.rez_egz_;
-        vid_ = other.vid_;
-        med_ = other.med_;
-        galut_iv_ = other.galut_iv_;
-        other.clear();
-    }
-    return *this;
+        if (this != &other) {
+            Zmogus::operator=(move(other));
+            rez_nd_ = move(other.rez_nd_);
+            rez_egz_ = other.rez_egz_;
+            vid_ = other.vid_;
+            med_ = other.med_;
+            galut_iv_ = other.galut_iv_;
+            other.clear();
+        }
+        return *this;
     }
 
     istream& operator>>(istream& is, Student_class& student) {
@@ -557,8 +556,12 @@ bool below_5(const Student_class& student) {
 void Student_class::testas() {
     cout << endl << endl;
 
+
+    //Zmogus objzmg("Jonas", "Jonaitis");
+
+
     // Create an object
-    Student_class obj1; // Initialize with default constructor
+    Student_class obj1("vardas", "pavarde", {0}, 0, 0, 0, 0); // Initialize with initial values
     cin >> obj1; // Input data from the user
 
     // Print the object
@@ -573,6 +576,9 @@ void Student_class::testas() {
     obj3 = obj1;
     cout << "Copy assignment operator: " << obj3 << endl;
 
+    //clear();
+    cout << "destructor: " << obj1 << endl << endl;
+
     // Test move constructor
     Student_class obj4(move(obj1));
     cout << "Move constructor: " << obj4 << endl;
@@ -582,6 +588,4 @@ void Student_class::testas() {
     obj5 = move(obj2);
     cout << "Move assignment operator: " << obj5 << endl;
 
-    obj2.clear();
-    cout << "Destructor: " << obj2 << endl << endl;
 }
