@@ -54,18 +54,14 @@ const int M = 15; //namu darbu uzduociu kiekis kai generuojama atsitiktinai
     }
 
     istream& operator>>(istream& is, Student_class& student) {
-        // Read data into the student object
         cout << "Studento vardas ir pavarde: ";
         is >> student.vard_ >> student.pav_;
-        // You can add more input prompts and read more data here
         return is;
     }
 
     // Output operator
     ostream& operator<<(ostream& os, const Student_class& student) {
-        // Print data from the student object
         os << "Studento vardas ir pavarde: " << student.vard_ << " " << student.pav_;
-        // You can print more data here if needed
         return os;
     }
 
@@ -545,10 +541,6 @@ bool below_5(const Student_class& student) {
 
 void Student_class::testas() {
     cout << endl << endl;
-
-
-    //Zmogus objzmg("Jonas", "Jonaitis");
-
 
     // Create an object
     Student_class obj1("vardas", "pavarde", {0}, 0, 0, 0, 0); // Initialize with initial values
