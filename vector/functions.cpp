@@ -79,14 +79,9 @@ void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
         }
         //Resize vector to n students
         grupe.resize(n);
-        string vardas, pavarde;
         for (int i = 0; i < n; ++i) {
             
-            cout << "Studento vardas ir pavarde: ";
-            cin >> vardas >> pavarde;
-            
-            grupe[i].setVard(vardas);
-            grupe[i].setPav(pavarde);
+            cin >> grupe[i];
             
             cout << "Studento egzamino rezultatas (1-10): ";
             double rez_egz_temp;
@@ -137,12 +132,7 @@ void Student_class::pasirinkimas2(vector<Student_class>& grupe) {
         }
         grupe.resize(n);
         for (int i = 0; i < n; ++i) {
-            cout << "studento vardas ir pavarde: ";
-            string vardas, pavarde;
-            cin >> vardas;
-            grupe[i].setVard(vardas);
-            cin >> pavarde;
-            grupe[i].setPav(pavarde);
+            cin >> grupe[i];
             grupe[i].setRezEgz(1 + rand() % 10);
             int m = 1 + rand() % M;
             grupe[i].getRezNd().resize(m, 0.0);
