@@ -53,16 +53,18 @@ const int M = 15; //namu darbu uzduociu kiekis kai generuojama atsitiktinai
     }
     return *this;
     }
-
+    
     istream& operator>>(istream& is, Student_class& student) {
-        cout << "studento vardas ir pavarde: ";
-        is >> student.vard_ >> student.pav_;
+        string vard, pav;
+        cout << "Studento vardas ir pavarde: ";
+        is >> vard >> pav;
+        student.setVard(vard);
+        student.setPav(pav);
         return is;
     }
-
     // Output operator
     ostream& operator<<(ostream& os, const Student_class& student) {
-        os << "Studento vardas ir pavarde: " << student.vard_ << " " << student.pav_;
+        os << student.getVard() << " " << student.getPav();
         return os;
     }
 
