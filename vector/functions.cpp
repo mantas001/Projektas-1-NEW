@@ -54,15 +54,18 @@ const int M = 15; //namu darbu uzduociu kiekis kai generuojama atsitiktinai
     }
 
     istream& operator>>(istream& is, Student_class& student) {
-        cout << "Studento vardas ir pavarde: ";
-        is >> student.vard_ >> student.pav_;
-        return is;
+    string vard, pav;
+    cout << "Studento vardas ir pavarde: ";
+    is >> vard >> pav;
+    student.setVard(vard);
+    student.setPav(pav);
+    return is;
     }
 
     // Output operator
     ostream& operator<<(ostream& os, const Student_class& student) {
-        os << "Studento vardas ir pavarde: " << student.vard_ << " " << student.pav_;
-        return os;
+    os << student.getVard() << " " << student.getPav();
+    return os;
     }
 
 void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
