@@ -570,6 +570,6 @@ void Student_class::testas() {
     obj5 = move(obj2);
     cout << "Move assignment operator: " << obj5 << endl;
 
-    obj2.clear();
-    cout << "Destructor: " << obj2 << endl << endl;
+    obj5.clear();
+    cout << "Destructor: " << obj5 << endl << endl;
 }
