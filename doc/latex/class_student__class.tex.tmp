@@ -1,0 +1,155 @@
+\doxysection{Student\+\_\+class Class Reference}
+\hypertarget{class_student__class}{}\label{class_student__class}\index{Student\_class@{Student\_class}}
+
+
+Klase nusakanti studenta, isvesta is klases \doxylink{class_zmogus}{Zmogus}.  
+
+
+
+
+{\ttfamily \#include $<$functions.\+h$>$}
+
+
+
+Inheritance diagram for Student\+\_\+class\+:
+% FIG 0
+
+
+Collaboration diagram for Student\+\_\+class\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_student__class_a8259d5cb5b5e6317be637b0611d6b33b}\label{class_student__class_a8259d5cb5b5e6317be637b0611d6b33b} 
+{\bfseries Student\+\_\+class} (string vard, string pav, vector$<$ double $>$ rez\+\_\+nd, double rez\+\_\+egz, double vid, double med, double galut\+\_\+iv)
+\item 
+\Hypertarget{class_student__class_a0a8bb5bce12363e188932829cbbd4d76}\label{class_student__class_a0a8bb5bce12363e188932829cbbd4d76} 
+{\bfseries Student\+\_\+class} (const \mbox{\hyperlink{class_student__class}{Student\+\_\+class}} \&other)
+\item 
+\Hypertarget{class_student__class_ac9a766827614b73f597e68c55cfab43a}\label{class_student__class_ac9a766827614b73f597e68c55cfab43a} 
+\mbox{\hyperlink{class_student__class}{Student\+\_\+class}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_student__class}{Student\+\_\+class}} \&other)
+\item 
+\Hypertarget{class_student__class_af30cd92f0af1c0dc62344a25b3013b88}\label{class_student__class_af30cd92f0af1c0dc62344a25b3013b88} 
+{\bfseries Student\+\_\+class} (\mbox{\hyperlink{class_student__class}{Student\+\_\+class}} \&\&other) noexcept
+\item 
+\Hypertarget{class_student__class_a9cd75be7cbda64da07de9e01d0e0ae8f}\label{class_student__class_a9cd75be7cbda64da07de9e01d0e0ae8f} 
+\mbox{\hyperlink{class_student__class}{Student\+\_\+class}} \& {\bfseries operator=} (\mbox{\hyperlink{class_student__class}{Student\+\_\+class}} \&\&other) noexcept
+\item 
+\Hypertarget{class_student__class_a09a7a85283bd916f3eb83e449e45c161}\label{class_student__class_a09a7a85283bd916f3eb83e449e45c161} 
+string {\bfseries get\+Vard} () const
+\item 
+\Hypertarget{class_student__class_a68c7992b9674ddb99aa6edb28bcf0a33}\label{class_student__class_a68c7992b9674ddb99aa6edb28bcf0a33} 
+string {\bfseries get\+Pav} () const
+\item 
+\Hypertarget{class_student__class_a4fd2f71ddff25b3f63d93c15aca1f918}\label{class_student__class_a4fd2f71ddff25b3f63d93c15aca1f918} 
+vector$<$ double $>$ {\bfseries get\+Rez\+Nd} () const
+\item 
+\Hypertarget{class_student__class_aa8342aa42354ecff6aacdf9db3a6b95a}\label{class_student__class_aa8342aa42354ecff6aacdf9db3a6b95a} 
+double {\bfseries get\+Rez\+Egz} () const
+\item 
+\Hypertarget{class_student__class_ad234489fcb8e0a5864f24f0850e8b14d}\label{class_student__class_ad234489fcb8e0a5864f24f0850e8b14d} 
+double {\bfseries get\+Vid} () const
+\item 
+\Hypertarget{class_student__class_a4f99cba05e2b88bcfcfe85072004f740}\label{class_student__class_a4f99cba05e2b88bcfcfe85072004f740} 
+double {\bfseries get\+Med} () const
+\item 
+\Hypertarget{class_student__class_a4549f740fb291a8fc9aedf884bba9cd7}\label{class_student__class_a4549f740fb291a8fc9aedf884bba9cd7} 
+double {\bfseries get\+Galut\+Iv} () const
+\item 
+\Hypertarget{class_student__class_a0bc824b0bfc1e9f8d52ef648765aa588}\label{class_student__class_a0bc824b0bfc1e9f8d52ef648765aa588} 
+void {\bfseries set\+Vard} (const string \&vard)
+\item 
+\Hypertarget{class_student__class_ac5ee7850d92a09a3768a38f9de1a23cc}\label{class_student__class_ac5ee7850d92a09a3768a38f9de1a23cc} 
+void {\bfseries set\+Pav} (const string \&pav)
+\item 
+\Hypertarget{class_student__class_a29d90089750dd8b299850556f541ef6c}\label{class_student__class_a29d90089750dd8b299850556f541ef6c} 
+void {\bfseries set\+Rez\+Nd} (const vector$<$ double $>$ \&rez\+\_\+nd)
+\item 
+\Hypertarget{class_student__class_a5a042bf10d2c978232b93584da9473e7}\label{class_student__class_a5a042bf10d2c978232b93584da9473e7} 
+void {\bfseries set\+Rez\+Egz} (double rez\+\_\+egz)
+\item 
+\Hypertarget{class_student__class_a6ad48c5fa82de5d0def66f4b58df2bfa}\label{class_student__class_a6ad48c5fa82de5d0def66f4b58df2bfa} 
+void {\bfseries set\+Vid} (double vid)
+\item 
+\Hypertarget{class_student__class_a09bbda8a27845c8424f2b497b41b9a01}\label{class_student__class_a09bbda8a27845c8424f2b497b41b9a01} 
+void {\bfseries set\+Med} (double med)
+\item 
+\Hypertarget{class_student__class_a5558c38f209360176e1ae8cd0e6767b6}\label{class_student__class_a5558c38f209360176e1ae8cd0e6767b6} 
+void {\bfseries set\+Galut\+Iv} (double galut\+\_\+iv)
+\item 
+\Hypertarget{class_student__class_a5ecda8c5427ef6e67ec1a0a51e09b84f}\label{class_student__class_a5ecda8c5427ef6e67ec1a0a51e09b84f} 
+void {\bfseries add\+Grade\+To\+Rez\+Nd} (double grade)
+\item 
+\Hypertarget{class_student__class_aead0c68c97a35f136e67bbb83643199d}\label{class_student__class_aead0c68c97a35f136e67bbb83643199d} 
+bool {\bfseries is\+Rez\+Nd\+Empty} () const
+\item 
+\Hypertarget{class_student__class_a2fe7cb6f3ff9e28ddecaa2475e0de079}\label{class_student__class_a2fe7cb6f3ff9e28ddecaa2475e0de079} 
+void {\bfseries set\+Rez\+Egz\+From\+Rez\+Nd} ()
+\item 
+\Hypertarget{class_student__class_ae1d09d170150a9a110f959535376e4e7}\label{class_student__class_ae1d09d170150a9a110f959535376e4e7} 
+void {\bfseries pasirinkimas1} (vector$<$ \mbox{\hyperlink{class_student__class}{Student\+\_\+class}} $>$ \&grupe)
+\item 
+\Hypertarget{class_student__class_a93607375a6fbf374d9121e0a0ca47855}\label{class_student__class_a93607375a6fbf374d9121e0a0ca47855} 
+void {\bfseries pasirinkimas2} (vector$<$ \mbox{\hyperlink{class_student__class}{Student\+\_\+class}} $>$ \&grupe)
+\item 
+\Hypertarget{class_student__class_a413e722a01b25b036cc74d12fcdffde6}\label{class_student__class_a413e722a01b25b036cc74d12fcdffde6} 
+void {\bfseries pasirinkimas3} (vector$<$ \mbox{\hyperlink{class_student__class}{Student\+\_\+class}} $>$ \&grupe)
+\item 
+\Hypertarget{class_student__class_abe9a7608f252af8928bb337dd3ed4743}\label{class_student__class_abe9a7608f252af8928bb337dd3ed4743} 
+void {\bfseries pasirinkimas6} (vector$<$ \mbox{\hyperlink{class_student__class}{Student\+\_\+class}} $>$ \&grupe, string \&filename2, int \&duom, chrono\+::duration$<$ double $>$ \&duom\+\_\+create\+\_\+diff)
+\item 
+\Hypertarget{class_student__class_a4d652a8851c782d352b158c31ae8e19d}\label{class_student__class_a4d652a8851c782d352b158c31ae8e19d} 
+void {\bfseries printrez} (vector$<$ \mbox{\hyperlink{class_student__class}{Student\+\_\+class}} $>$ \&grupe)
+\item 
+\Hypertarget{class_student__class_a54f66fa47a7a0dce343c887a63c2442d}\label{class_student__class_a54f66fa47a7a0dce343c887a63c2442d} 
+void {\bfseries Mediana\+Vidurkis} (\mbox{\hyperlink{class_student__class}{Student\+\_\+class}} \&student)
+\item 
+\Hypertarget{class_student__class_abc9fd7dfaf93943100424db13e5a8d69}\label{class_student__class_abc9fd7dfaf93943100424db13e5a8d69} 
+void {\bfseries pasirinkimas4} (vector$<$ \mbox{\hyperlink{class_student__class}{Student\+\_\+class}} $>$ \&grupe)
+\item 
+\Hypertarget{class_student__class_a1d560b48b759b7d989ff50a2c0379e77}\label{class_student__class_a1d560b48b759b7d989ff50a2c0379e77} 
+void {\bfseries sorting} (vector$<$ \mbox{\hyperlink{class_student__class}{Student\+\_\+class}} $>$ \&grupe)
+\item 
+\Hypertarget{class_student__class_a57bfbc073af3352bbcc337e7a220fe61}\label{class_student__class_a57bfbc073af3352bbcc337e7a220fe61} 
+void {\bfseries saunuoliai\+\_\+vargsai} (vector$<$ \mbox{\hyperlink{class_student__class}{Student\+\_\+class}} $>$ \&grupe, vector$<$ \mbox{\hyperlink{class_student__class}{Student\+\_\+class}} $>$ \&vargsai)
+\item 
+\Hypertarget{class_student__class_aa2d7ff6e5a1795daeb1756aaac2537b4}\label{class_student__class_aa2d7ff6e5a1795daeb1756aaac2537b4} 
+void {\bfseries duomenu\+\_\+sukurimas} (vector$<$ \mbox{\hyperlink{class_student__class}{Student\+\_\+class}} $>$ \&grupe, chrono\+::duration$<$ double $>$ \&duom\+\_\+create\+\_\+diff, int \&duom)
+\item 
+\Hypertarget{class_student__class_a609ede013712be0f95831ce604e1eadf}\label{class_student__class_a609ede013712be0f95831ce604e1eadf} 
+bool {\bfseries below\+\_\+5} (const \mbox{\hyperlink{class_student__class}{Student\+\_\+class}} \&student)
+\item 
+\Hypertarget{class_student__class_aeea3b9f9aea118af41c9efdf7f2a7ad5}\label{class_student__class_aeea3b9f9aea118af41c9efdf7f2a7ad5} 
+void {\bfseries testas} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_student__class_a8ef165de53cf6462d476c57120efb63a}\label{class_student__class_a8ef165de53cf6462d476c57120efb63a} 
+istream \& {\bfseries operator$>$$>$} (istream \&is, \mbox{\hyperlink{class_student__class}{Student\+\_\+class}} \&student)
+\item 
+\Hypertarget{class_student__class_a6b2489071c860af1caa2179894360b4a}\label{class_student__class_a6b2489071c860af1caa2179894360b4a} 
+ostream \& {\bfseries operator$<$$<$} (ostream \&os, const \mbox{\hyperlink{class_student__class}{Student\+\_\+class}} \&student)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_zmogus}{Zmogus}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_zmogus_af48c8ee07bf87ee93572e45105ba9be6}{Zmogus}} (const string \&vard, const string \&pav)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_zmogus}{Zmogus}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_zmogus}{Zmogus}}}
+\begin{DoxyCompactItemize}
+\item 
+string \mbox{\hyperlink{class_zmogus_a8a8b9af28a82cab00a4f3c86a5b24c54}{vard\+\_\+}}
+\item 
+string \mbox{\hyperlink{class_zmogus_a32c9abe9f74ed6d03df350dd3abfea84}{pav\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Klase nusakanti studenta, isvesta is klases \doxylink{class_zmogus}{Zmogus}. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/einor/\+One\+Drive/\+Stalinis kompiuteris/\+Projektas-\/1/vector/functions.\+h\item 
+C\+:/\+Users/einor/\+One\+Drive/\+Stalinis kompiuteris/\+Projektas-\/1/vector/functions.\+cpp\end{DoxyCompactItemize}
