@@ -1,5 +1,8 @@
+#include "pch.h"
 #include "functions.h"
 #include <iostream>
+#include <utility> // for std::move
+
 #include <iomanip>
 #include <fstream>
 #include <chrono>
@@ -8,65 +11,65 @@
 using namespace std;
 const int M = 15; //namu darbu uzduociu kiekis kai generuojama atsitiktinai
 
-    Student_class::Student_class() 
+Student_class::Student_class()
     : Zmogus("", ""), rez_nd_(), rez_egz_(0.0), vid_(0.0), med_(0.0), galut_iv_(0.0) {}
 
-    Student_class::Student_class(string vard, string pav, vector<double> rez_nd, double rez_egz, double vid, double med, double galut_iv)
+Student_class::Student_class(string vard, string pav, vector<double> rez_nd, double rez_egz, double vid, double med, double galut_iv)
     : Zmogus(vard, pav), rez_nd_(rez_nd), rez_egz_(rez_egz), vid_(vid), med_(med), galut_iv_(galut_iv) {}
 
-    Student_class::~Student_class() {
-        cout << "destructor'ius veikia!!!" << endl << endl;//eilute testui
-        clear();
-    }
+Student_class::~Student_class() {
+    cout << "destructor'ius veikia!!!" << endl << endl;//eilute testui
+    clear();
+}
 
-    Student_class::Student_class(const Student_class& other)
+Student_class::Student_class(const Student_class& other)
     : Zmogus(other), rez_nd_(other.rez_nd_), rez_egz_(other.rez_egz_), vid_(other.vid_), med_(other.med_), galut_iv_(other.galut_iv_) {}
 
 
-    Student_class& Student_class::operator=(const Student_class& other) {
-        if (this != &other) {
-            Zmogus::operator=(other);
-            rez_nd_ = other.rez_nd_;
-            rez_egz_ = other.rez_egz_;
-            vid_ = other.vid_;
-            med_ = other.med_;
-            galut_iv_ = other.galut_iv_;
-        }
-        return *this;
+Student_class& Student_class::operator=(const Student_class& other) {
+    if (this != &other) {
+        Zmogus::operator=(other);
+        rez_nd_ = other.rez_nd_;
+        rez_egz_ = other.rez_egz_;
+        vid_ = other.vid_;
+        med_ = other.med_;
+        galut_iv_ = other.galut_iv_;
     }
+    return *this;
+}
 
-    Student_class::Student_class(Student_class&& other) noexcept
+Student_class::Student_class(Student_class&& other) noexcept
     : Zmogus(move(other.vard_), move(other.pav_)), rez_nd_(move(other.rez_nd_)), rez_egz_(other.rez_egz_), vid_(other.vid_), med_(other.med_), galut_iv_(other.galut_iv_) {
     other.clear();
-    }
+}
 
-    Student_class& Student_class::operator=(Student_class&& other) noexcept {
-        if (this != &other) {
-            Zmogus::operator=(move(other));
-            rez_nd_ = move(other.rez_nd_);
-            rez_egz_ = other.rez_egz_;
-            vid_ = other.vid_;
-            med_ = other.med_;
-            galut_iv_ = other.galut_iv_;
-            other.clear();
-        }
-        return *this;
+Student_class& Student_class::operator=(Student_class&& other) noexcept {
+    if (this != &other) {
+        Zmogus::operator=(move(other));
+        rez_nd_ = move(other.rez_nd_);
+        rez_egz_ = other.rez_egz_;
+        vid_ = other.vid_;
+        med_ = other.med_;
+        galut_iv_ = other.galut_iv_;
+        other.clear();
     }
+    return *this;
+}
 
-    istream& operator>>(istream& is, Student_class& student) {
+istream& operator>>(istream& is, Student_class& student) {
     string vard, pav;
     cout << "Studento vardas ir pavarde: ";
     is >> vard >> pav;
     student.setVard(vard);
     student.setPav(pav);
     return is;
-    }
+}
 
-    // Output operator
-    ostream& operator<<(ostream& os, const Student_class& student) {
+// Output operator
+ostream& operator<<(ostream& os, const Student_class& student) {
     os << student.getVard() << " " << student.getPav();
     return os;
-    }
+}
 
 void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
     try {
@@ -79,26 +82,26 @@ void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
         //Resize vector to n students
         grupe.resize(n);
         for (int i = 0; i < n; ++i) {
-            
+
             cin >> grupe[i];
-            
+
             cout << "Studento egzamino rezultatas (1-10): ";
             double rez_egz_temp;
             cin >> rez_egz_temp;
             if (cin.fail() || rez_egz_temp < 1 || rez_egz_temp > 10) {
                 throw runtime_error("Netinkamas egzamino rezultatas.");
             }
-            
+
             //Set egz
             grupe[i].setRezEgz(rez_egz_temp);
-            
+
             cout << "Namu darbu kiekis: ";
-            int m=0;
+            int m = 0;
             cin >> m;
             if (cin.fail() || m <= 0) {
                 throw runtime_error("Netinkamas namu darbu kiekis.");
             }
-            
+
             grupe[i].getRezNd().resize(m, 0.0);
 
             for (int j = 0; j < m; ++j) {
@@ -114,7 +117,8 @@ void Student_class::pasirinkimas1(std::vector<Student_class>& grupe) {
         }
         printrez(grupe);
         grupe.clear();
-    } catch (const exception& e) {
+    }
+    catch (const exception& e) {
         cerr << "Klaida: " << e.what() << endl;
         cin.clear(); //Clear error flags
         cin.ignore(numeric_limits<streamsize>::max(), '\n'); //Ignore invalid input
@@ -143,7 +147,8 @@ void Student_class::pasirinkimas2(vector<Student_class>& grupe) {
         }
         printrez(grupe);
         grupe.clear();
-    } catch (const exception& e) {
+    }
+    catch (const exception& e) {
         cerr << "Klaida: " << e.what() << endl;
         cin.clear(); //Clear error flags
         cin.ignore(numeric_limits<streamsize>::max(), '\n'); //Ignore invalid input
@@ -151,7 +156,7 @@ void Student_class::pasirinkimas2(vector<Student_class>& grupe) {
 }
 
 void Student_class::pasirinkimas3(vector<Student_class>& grupe) {
-    try{
+    try {
         int n;
         cout << "Kiek studentu yra grupeje? ";
         cin >> n;
@@ -172,7 +177,8 @@ void Student_class::pasirinkimas3(vector<Student_class>& grupe) {
         }
         printrez(grupe);
         grupe.clear();
-    } catch (const exception& e) {
+    }
+    catch (const exception& e) {
         cerr << "Klaida: " << e.what() << endl;
         cin.clear(); //Clear error flags
         cin.ignore(numeric_limits<streamsize>::max(), '\n'); //Ignore invalid input
@@ -196,16 +202,16 @@ void Student_class::printrez(vector<Student_class>& grupe) {
         grupe[i].setGalutIv(galutinis);
     }
     sorting(grupe);
-    cout << "Vardas              Pavarde             "; 
-    if (vid_med == "v") 
+    cout << "Vardas              Pavarde             ";
+    if (vid_med == "v")
         cout << "Galutinis (Vid.)" << endl;
-    else if (vid_med == "m") 
+    else if (vid_med == "m")
         cout << "Galutinis (Med.)" << endl;
 
     cout << "--------------------------------------------------------" << endl;
     for (int i = 0; i < grupe.size(); i++) {
-        cout << left << setw(20) << grupe[i].getVard() << left << setw(20) << grupe[i].getPav() 
-             << left << setw(20) << setprecision(3) << grupe[i].getGalutIv() << endl;
+        cout << left << setw(20) << grupe[i].getVard() << left << setw(20) << grupe[i].getPav()
+            << left << setw(20) << setprecision(3) << grupe[i].getGalutIv() << endl;
     }
     cout << "--------------------------------------------------------\n";
     cout << endl;
@@ -218,9 +224,9 @@ void Student_class::MedianaVidurkis(Student_class& grupe) {
     // Copy of rez_nd
     vector<double> sorted_rez_nd = rez_nd_temp;
     sort(sorted_rez_nd.begin(), sorted_rez_nd.end());
-    
+
     int m_size = sorted_rez_nd.size();
-    
+
     // Mediana
     if (m_size % 2 != 0)
         grupe.setMed(sorted_rez_nd[m_size / 2]);
@@ -257,9 +263,9 @@ void Student_class::pasirinkimas4(vector<Student_class>& grupe) {
         int expected_size = word_count - 3;
         //Read data for each student from the file
         auto start = chrono::high_resolution_clock::now();
-        int eilutes=0;
+        int eilutes = 0;
         while (getline(file, line)) {
-            
+
             eilutes++;
             Student_class student; //Create a new student object
             string vardas, pavarde;
@@ -287,23 +293,23 @@ void Student_class::pasirinkimas4(vector<Student_class>& grupe) {
                 throw runtime_error("Nepavyko nuskaityti egzamino rezultato.");
             }
             student.setRezEgz(rez_egz_temp);
-            
+
             student.MedianaVidurkis(student);
             grupe.push_back(student); //Add the student to the vector
         }
 
-        chrono::duration<double> diff = chrono::high_resolution_clock::now()-start; //Skirtumas (s)
+        chrono::duration<double> diff = chrono::high_resolution_clock::now() - start; //Skirtumas (s)
         string pav_temp = "rezultatai" + to_string(eilutes) + ".txt";
         ofstream fr(pav_temp);
-        fr <<"Nuskaityti duomenis uztruko: "<< diff.count() << " s\n";
+        fr << "Nuskaityti duomenis uztruko: " << diff.count() << " s\n";
         file.close();
 
         string vid_med;
         cout << "Skaiciuoti galutini ivertinima naudojant vidurki ar mediana? (v, m) ";
-        do{
-        cin >> vid_med;
-        if (vid_med!="v"&&vid_med!="m") cout << "Netinkama ivestis(irasykite 'v' arba 'm'): ";
-        }while(vid_med!="v"&&vid_med!="m");
+        do {
+            cin >> vid_med;
+            if (vid_med != "v" && vid_med != "m") cout << "Netinkama ivestis(irasykite 'v' arba 'm'): ";
+        } while (vid_med != "v" && vid_med != "m");
 
         //galutinis
         double a = -1;
@@ -315,75 +321,79 @@ void Student_class::pasirinkimas4(vector<Student_class>& grupe) {
         }
         sorting(grupe);
 
-        fr << "Vardas              Pavarde             "; if (vid_med == "v") fr <<"Galutinis (Vid.)"<< endl;
-                                                else if (vid_med == "m") fr <<"Galutinis (Med.)"<< endl;
+        fr << "Vardas              Pavarde             "; if (vid_med == "v") fr << "Galutinis (Vid.)" << endl;
+        else if (vid_med == "m") fr << "Galutinis (Med.)" << endl;
         fr << "--------------------------------------------------------" << endl;
         start = chrono::high_resolution_clock::now();
         for (int i = 0; i < grupe.size(); i++) {
             fr << left << setw(20) << grupe[i].getVard() << left << setw(20) << grupe[i].getPav() << left << setw(20) << setprecision(3) << grupe[i].getGalutIv() << endl;
         }
-        diff = chrono::high_resolution_clock::now()-start; //Skirtumas (s)
+        diff = chrono::high_resolution_clock::now() - start; //Skirtumas (s)
         fr << "--------------------------------------------------------\n";
-        fr <<"Irasyti duomenis uztruko: "<< diff.count() << " s\n";
+        fr << "Irasyti duomenis uztruko: " << diff.count() << " s\n";
         fr.close();
 
-    } catch (const exception& e) {
+    }
+    catch (const exception& e) {
         cerr << "Klaida: " << e.what() << endl;
     }
     grupe.clear();
 }
 
-void Student_class::sorting(vector<Student_class>& grupe){
+void Student_class::sorting(vector<Student_class>& grupe) {
     string sort_choice, sort_order;
     cout << "Rikiuoti pagal (v - vardas, p - pavarde, g - galutinis ivertinimas): ";
-    do{
-    cin >> sort_choice;
-    if (sort_choice!="v"&&sort_choice!="p"&&sort_choice!="g") cout << "Netinkama ivestis(irasykite 'v' , 'p' arba 'g'): ";
-    }while(sort_choice!="v"&&sort_choice!="p"&&sort_choice!="g");
+    do {
+        cin >> sort_choice;
+        if (sort_choice != "v" && sort_choice != "p" && sort_choice != "g") cout << "Netinkama ivestis(irasykite 'v' , 'p' arba 'g'): ";
+    } while (sort_choice != "v" && sort_choice != "p" && sort_choice != "g");
 
     cout << "Pasirinkite rikiavimo tvarka (d - didejimo, m - mazejimo): ";
-    do{
-    cin >> sort_order;
-    if (sort_order!="d"&&sort_order!="m") cout << "Netinkama ivestis(irasykite 'd' arba 'm'): ";
-    }while(sort_order!="d"&&sort_order!="m");
+    do {
+        cin >> sort_order;
+        if (sort_order != "d" && sort_order != "m") cout << "Netinkama ivestis(irasykite 'd' arba 'm'): ";
+    } while (sort_order != "d" && sort_order != "m");
 
     switch (sort_choice[0]) {
     case 'v': //pagal varda
         if (sort_order == "d") {
             sort(grupe.begin(), grupe.end(), [](const Student_class& a, const Student_class& b) {
                 return (a.getVard() < b.getVard());
-            });
-        } else if (sort_order == "m") {
+                });
+        }
+        else if (sort_order == "m") {
             sort(grupe.begin(), grupe.end(), [](const Student_class& a, const Student_class& b) {
                 return (a.getVard() > b.getVard());
-            });
+                });
         }
         break;
     case 'p': //pagal pavarde
         if (sort_order == "d") {
             sort(grupe.begin(), grupe.end(), [](const Student_class& a, const Student_class& b) {
                 return (a.getPav() < b.getPav());
-            });
-        } else if (sort_order == "m") {
+                });
+        }
+        else if (sort_order == "m") {
             sort(grupe.begin(), grupe.end(), [](const Student_class& a, const Student_class& b) {
                 return (a.getPav() > b.getPav());
-            });
+                });
         }
         break;
     case 'g': //pagal galutini ivertinima
         if (sort_order == "d") {
             sort(grupe.begin(), grupe.end(), [](const Student_class& a, const Student_class& b) {
                 return (a.getGalutIv() < b.getGalutIv());
-            });
-        } else if (sort_order == "m") {
+                });
+        }
+        else if (sort_order == "m") {
             sort(grupe.begin(), grupe.end(), [](const Student_class& a, const Student_class& b) {
                 return (a.getGalutIv() > b.getGalutIv());
-            });
+                });
         }
         break;
     default:
-            cout << "Neteisingas pasirinkimas" << endl;
-            return;
+        cout << "Neteisingas pasirinkimas" << endl;
+        return;
     }
 }
 
@@ -506,30 +516,30 @@ void Student_class::pasirinkimas6(vector<Student_class>& grupe, string& filename
     vargsai.clear();
 }
 
-void Student_class::duomenu_sukurimas(vector<Student_class>& grupe, chrono::duration<double>& duom_create_diff, int& duom){
+void Student_class::duomenu_sukurimas(vector<Student_class>& grupe, chrono::duration<double>& duom_create_diff, int& duom) {
     cout << "Kiek eiluciu duomenu generuoti? ";
     cin >> duom;
-    string filename2="duomenys" + to_string(duom) + ".txt";
+    string filename2 = "duomenys" + to_string(duom) + ".txt";
     auto duom_create_start = chrono::high_resolution_clock::now();
     ofstream fr(filename2);
     fr << "Vardas              Pavarde             ND1       ND2       ND3       ND4       ND5       ND6       ND7       ND8       ND9       ND10      ND11      ND12      ND13      ND14      ND15      Egz." << endl;
-    for (int i=0; i<duom; i++){
-        fr << left << setw(20) << "Vardas" + to_string(i+1) << left << setw(20) << "Pavarde" + to_string(i+1);
-        for (int j=0; j<15; j++){
+    for (int i = 0; i < duom; i++) {
+        fr << left << setw(20) << "Vardas" + to_string(i + 1) << left << setw(20) << "Pavarde" + to_string(i + 1);
+        for (int j = 0; j < 15; j++) {
             fr << left << setw(10) << 1 + rand() % 10;
         }
         fr << 1 + rand() % 10;
         fr << endl;
     }
     fr.close();
-    duom_create_diff = chrono::high_resolution_clock::now()-duom_create_start;
+    duom_create_diff = chrono::high_resolution_clock::now() - duom_create_start;
 }
 
 void Student_class::saunuoliai_vargsai(vector<Student_class>& grupe, vector<Student_class>& vargsai) {
     //Partition the grupe vector based on below_5 condition using a lambda function
     auto partition_point = partition(grupe.begin(), grupe.end(), [](const Student_class& student) {
         return student.getGalutIv() < 5;
-    });
+        });
 
     //Move the partitioned elements to vargsai
     move(partition_point, grupe.end(), back_inserter(vargsai));
@@ -547,7 +557,7 @@ void Student_class::testas() {
 
     //Zmogus objzmogus("zmogus-vard-obj", "zmogus-pav-obj");
 
-    Student_class obj1("vardas", "pavarde", {0}, 0, 0, 0, 0); // Initialize with initial values
+    Student_class obj1("vardas", "pavarde", { 0 }, 0, 0, 0, 0); // Initialize with initial values
     cin >> obj1; // Input data from the user
 
     // Print the object

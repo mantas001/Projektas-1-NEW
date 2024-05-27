@@ -14,13 +14,13 @@ class Zmogus {
 protected:
     string vard_; /**< Zmogaus vardas */
     string pav_;  /**< Zmogaus pavarde */
-/**
-     * @brief Constructor for Zmogus.
-     * @param vard Vardas.
-     * @param pav Pavarde.
-     */
+    /**
+         * @brief Constructor for Zmogus.
+         * @param vard Vardas.
+         * @param pav Pavarde.
+         */
     Zmogus(const string& vard, const string& pav) //constructor'ius protected = no zmogus objects
-    : vard_(vard), pav_(pav) {}
+        : vard_(vard), pav_(pav) {}
 public:
 
     virtual ~Zmogus() = default;
@@ -60,25 +60,25 @@ public:
     friend istream& operator>>(istream& is, Student_class& student);
     friend ostream& operator<<(ostream& os, const Student_class& student);
 
-    string getVard() const { return vard_;}
-    string getPav() const { return pav_;}
-    vector<double> getRezNd() const { return rez_nd_;}
-    double getRezEgz() const { return rez_egz_;}
-    double getVid() const { return vid_;}
-    double getMed() const { return med_;}
-    double getGalutIv() const { return galut_iv_;}
+    string getVard() const { return vard_; }
+    string getPav() const { return pav_; }
+    vector<double> getRezNd() const { return rez_nd_; }
+    double getRezEgz() const { return rez_egz_; }
+    double getVid() const { return vid_; }
+    double getMed() const { return med_; }
+    double getGalutIv() const { return galut_iv_; }
 
-    void setVard(const string& vard) { vard_ = vard;}
-    void setPav(const string& pav) { pav_ = pav;}
-    void setRezNd(const vector<double>& rez_nd) { rez_nd_ = rez_nd;}
-    void setRezEgz(double rez_egz) { rez_egz_ = rez_egz;}
-    void setVid(double vid) { vid_ = vid;}
-    void setMed(double med) { med_ = med;}
-    void setGalutIv(double galut_iv) { galut_iv_ = galut_iv;}
+    void setVard(const string& vard) { vard_ = vard; }
+    void setPav(const string& pav) { pav_ = pav; }
+    void setRezNd(const vector<double>& rez_nd) { rez_nd_ = rez_nd; }
+    void setRezEgz(double rez_egz) { rez_egz_ = rez_egz; }
+    void setVid(double vid) { vid_ = vid; }
+    void setMed(double med) { med_ = med; }
+    void setGalutIv(double galut_iv) { galut_iv_ = galut_iv; }
 
-    void addGradeToRezNd(double grade) { rez_nd_.push_back(grade);}
+    void addGradeToRezNd(double grade) { rez_nd_.push_back(grade); }
 
-    bool isRezNdEmpty() const { return rez_nd_.empty();}
+    bool isRezNdEmpty() const { return rez_nd_.empty(); }
 
     void setRezEgzFromRezNd() {
         if (!rez_nd_.empty()) {
