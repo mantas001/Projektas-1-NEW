@@ -6,25 +6,36 @@
 #include <chrono>
 
 using namespace std;
-
+/**
+ * @class Zmogus
+ * @brief Klase nusakanti zmogu.
+ */
 class Zmogus {
 protected:
-    string vard_, pav_;
-
+    string vard_; /**< Zmogaus vardas */
+    string pav_;  /**< Zmogaus pavarde */
+/**
+     * @brief Constructor for Zmogus.
+     * @param vard Vardas.
+     * @param pav Pavarde.
+     */
     Zmogus(const string& vard, const string& pav) //constructor'ius protected = no zmogus objects
     : vard_(vard), pav_(pav) {}
 public:
 
     virtual ~Zmogus() = default;
 };
-
+/**
+ * @class Student_class
+ * @brief Klase nusakanti studenta, isvesta is klases Zmogus.
+ */
 class Student_class : public Zmogus {
 private:
-    vector<double> rez_nd_;
-    double rez_egz_;
-    double vid_;
-    double med_;
-    double galut_iv_;
+    vector<double> rez_nd_; /**< Namu darbu pazymiai */
+    double rez_egz_;        /**< Egzamino pazymys */
+    double vid_;            /**< Vidurkio pazymys */
+    double med_;            /**< Medianos pazymys */
+    double galut_iv_;       /**< Galytinis pazymys */
 
     void clear() {
         vard_.clear();

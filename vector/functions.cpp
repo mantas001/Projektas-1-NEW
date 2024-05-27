@@ -545,7 +545,8 @@ bool below_5(const Student_class& student) {
 void Student_class::testas() {
     cout << endl << endl;
 
-    // Create an object
+    //Zmogus objzmogus("zmogus-vard-obj", "zmogus-pav-obj");
+
     Student_class obj1("vardas", "pavarde", {0}, 0, 0, 0, 0); // Initialize with initial values
     cin >> obj1; // Input data from the user
 
