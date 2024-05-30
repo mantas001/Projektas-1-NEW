@@ -1,17 +1,19 @@
+#include "functions.h"
+#include "Vector.h"
 #include <iostream>
 #include <ctime>
-#include <vector>
+//#include <vector>
 #include <string>
 #include <cstdlib>
 #include <chrono>
-#include "functions.h"
+#include <iterator>
 
 using namespace std;
 
 int main() {
     srand(time(NULL));
     Student_class grupe; //Create an instance of the Student_class
-    vector<Student_class> student_group;
+    Vector<Student_class> student_group;
     string filename2;
     int duom;
     std::chrono::duration<double> duom_create_diff;
@@ -25,7 +27,7 @@ int main() {
             cout << "5 - Generuoti naujus duomenis" << endl;
             cout << "6 - Suskirstyti studentus" << endl;
             cout << "7 - Baigti darba" << endl;
-            cout << "testas - testas uzduociai" << endl;
+            //cout << "testas - testas uzduociai" << endl;
             cout << "Pasirinkimas: ";
             cin >> pasirinkimas;
         } while (!(pasirinkimas == "1" || pasirinkimas == "2" || pasirinkimas == "3" || pasirinkimas == "4"|| pasirinkimas == "5"|| pasirinkimas == "6"|| pasirinkimas == "7"|| pasirinkimas == "testas"));
@@ -35,7 +37,7 @@ int main() {
         else if (pasirinkimas == "4") grupe.pasirinkimas4(student_group);
         else if (pasirinkimas == "5") grupe.duomenu_sukurimas(student_group, duom_create_diff, duom);
         else if (pasirinkimas == "6") grupe.pasirinkimas6(student_group, filename2, duom, duom_create_diff);
-        else if (pasirinkimas == "testas") grupe.testas();
+        //else if (pasirinkimas == "testas") grupe.testas();
         else if (pasirinkimas == "7"){
             cout << "Programa darba baige" << endl;
             break;
