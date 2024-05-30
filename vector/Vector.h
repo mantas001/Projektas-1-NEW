@@ -1,5 +1,5 @@
-#ifndef MYPROJECT_VECTOR_H
-#define MYPROJECT_VECTOR_H
+#ifndef VECTOR_H
+#define VECTOR_H
 
 #include <cstddef>    // for size_t
 #include <stdexcept>  // for out_of_range
@@ -165,6 +165,6 @@ public:
         return *this;
     }
 
-    // Other necessary operator overloads for insert iterators can be added here
+
 };
 #endif
