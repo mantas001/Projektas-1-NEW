@@ -165,6 +165,5 @@ public:
         return *this;
     }
 
-
 };
 #endif
