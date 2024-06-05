@@ -561,7 +561,7 @@ void Student_class::testas() {
     obj3 = obj1;
     cout << "Copy assignment operator: " << obj3 << endl;
 
-    //clear();
+    clear();
     cout << "destructor: " << obj1 << endl << endl;
 
     // Test move constructor
