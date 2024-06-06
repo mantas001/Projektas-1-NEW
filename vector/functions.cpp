@@ -546,7 +546,7 @@ void Student_class::testas() {
     cout << endl << endl;
 
     // Create an object
-    Student_class obj1; // Initialize with default constructor
+    Student_class obj1("vardas", "pavarde", {0}, 0, 0, 0, 0); // Initialize with initial values
     cin >> obj1; // Input data from the user
 
     // Print the object
@@ -561,15 +561,21 @@ void Student_class::testas() {
     obj3 = obj1;
     cout << "Copy assignment operator: " << obj3 << endl;
 
+    obj1.clear();
+    cout << "destructor: " << obj1 << endl << endl;
+
+
+    cin >> obj1;
+
     // Test move constructor
     Student_class obj4(move(obj1));
-    cout << "Move constructor: " << obj4 << endl;
+    cout << "Move constructor: " << obj4 <<  obj1 << endl;
+
+    cin >> obj1;
 
     // Test move assignment operator
     Student_class obj5;
-    obj5 = move(obj2);
-    cout << "Move assignment operator: " << obj5 << endl;
+    obj5 = move(obj1);
+    cout << "Move assignment operator: " << obj5 << obj1 << endl;
 
-    obj5.clear();
-    cout << "Destructor: " << obj5 << endl << endl;
 }
